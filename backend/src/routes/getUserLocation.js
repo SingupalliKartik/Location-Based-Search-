@@ -35,5 +35,6 @@ function showError(error) {
     }
 }
 
+
 // Call the function to get the user's location
 getUserLocation();
