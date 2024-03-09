@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate,Link, useParams } from "react-router-dom";
-
+import Sidebar from './sidebar';
+import Map from "./Map";
 const Dashboard  = ()=>{
   const {id} =  useParams();
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ const getlocation = ()=>{
     },[])
     return(
         <>
-                <nav class="relative px-4 py-4 flex justify-between bg-blue-900 items-center ">
+                {/* <nav class="relative px-4 py-4 flex justify-between bg-blue-900 items-center ">
 		<a class="text-lg sm:text-3xl text-white	  font-bold leading-none" href="#">
 			DASHBOARD
 		</a>
@@ -73,10 +74,11 @@ const getlocation = ()=>{
              localStorage.removeItem("token");
 			 navigate("/");
 		}} class="hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200" href="#">Log Out</button>
-	</nav>
-
-	{/* My Location */}
-	<button onClick={getlocation} className="p-3 px-6 border-2 border-black">My Location</button>
+	</nav> */}
+  <div className="flex">
+    <Sidebar></Sidebar>
+    <Map/>
+  </div>
         </>
     )
 }

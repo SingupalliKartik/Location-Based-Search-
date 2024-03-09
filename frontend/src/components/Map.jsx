@@ -5,11 +5,52 @@ import Slider from "@mui/material/Slider";
 import Button from "@mui/material/Button";
 import GoogleMapReact from "google-map-react";
 import LocationSearchingIcon from "@mui/icons-material/LocationSearching";
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 const Map = () => {
+  const {id} = useParams();
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
+  const [initial,final] = useState([{   
+    id:"",
+CoreSkill:"",
+latitude:"",
+longitude:"",
+skillLevel:"",
+selectedSports:""
+  }])
+    const navigate = useNavigate();
+    const getdata  = async()=>{
+        try {
+           const result = await axios.get(`http://localhost:1234/sport_data/${id}`) ;
+           const sport_data = result.data.sport_data;
+           sport_data.map((info)=>{
+            final((data)=>[
+              ...data,{
+                id:info._id,
+                CoreSkill:info.CoreSkill,
+                latitude:info.latitude,
+                longitude:info.longitude,
+                skillLevel:info.skillLevel,
+                selectedSports:info.selectedSports
+              }
+            ])
+           })
+           
+        } catch (error) {
+            console.log(error);
+            alert(error);
+        }
+    }
+
+console.log(initial)
+const [selectedLocation, setSelectedLocation] = useState(null);
+const [nearbyLocations, setNearbyLocations] = useState([]);
+
 
   useEffect(() => {
+    getdata();
     getUserLocation();
   }, []);
 
@@ -24,12 +65,48 @@ const Map = () => {
   const showPosition = (position) => {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
-    console.log("Latitude: " + latitude + ", Longitude: " + longitude);
-    // You can perform further actions with the user's location here
     setLatitude(latitude);
     setLongitude(longitude);
+      filterNearbyLocations(latitude, longitude);
   };
 
+const calculateDistance = (lat1, lon1, lat2, lon2) => {
+  const R = 6371; // Radius of the earth in km
+  const dLat = (lat2 - lat1) * (Math.PI / 180); // deg2rad below
+  const dLon = (lon2 - lon1) * (Math.PI / 180);
+  const a =
+    0.5 -
+    Math.cos(dLat) / 2 +
+    (Math.cos(lat1 * (Math.PI / 180)) *
+      Math.cos(lat2 * (Math.PI / 180)) *
+      (1 - Math.cos(dLon))) /
+      2;
+
+  return R * 2 * Math.asin(Math.sqrt(a)); // Distance in km
+};
+
+const filterNearbyLocations = (lat, lon) => {
+  const nearby = userLocations.filter((location) => {
+    const distance = calculateDistance(lat, lon, location.latitude, location.longitude);
+    return distance < 10;
+  });
+  setNearbyLocations(nearby);
+};
+
+const pinpointLocation = (location) => {
+  setSelectedLocation(location);
+  const distance = calculateDistance(
+    latitude,
+    longitude,
+    location.latitude,
+    location.longitude
+  );
+  alert(
+    `Name: ${location.name}, ID: ${location.id}, Distance: ${distance.toFixed(
+      2
+    )} km`
+  );
+};
   const showError = (error) => {
     switch (error.code) {
       case error.PERMISSION_DENIED:
@@ -51,15 +128,14 @@ const Map = () => {
 
   const header = () => {
     return (
-      <div style={{ backgroundColor: "white" }}>
-        <Typography variant="h4" style={{ textAlign: "center" }}>
+      <div className="bg-transparent" style={{ backgroundColor: "white" }}>
+        <Typography  style={{ textAlign: "center" }}>
           MATCHFINDER
         </Typography>
-
         <TextField
           label="Search for your match"
           variant="outlined"
-          style={{ width: "100%" }}
+          style={{ width: "95%",margin:"auto",display:"flex",height:"35px" }}
         />
         <div
           style={{
@@ -69,26 +145,26 @@ const Map = () => {
             alignItems: "center",
           }}
         >
-          <Typography variant="h4" style={{ textAlign: "center" }}>
+          <Typography variant="h8" style={{ textAlign: "center" }}>
             Distance
           </Typography>
         </div>
 
-        <Slider />
+        <Slider style={{ width: "95%" ,margin:"auto",display:"flex",}} />
 
-        <div>
-          <Button variant="outlined" style={{ width: "50%" }}>
+        <div style={{margin:"auto",display:"flex", justifyContent:"space-evenly"}}>
+          <Button variant="outlined" style={{ width: "45%",marginBottom:"10px" }}>
             Reset
           </Button>
 
-          <Button variant="outlined" style={{ width: "50%" }}>
+          <Button variant="outlined" style={{ width: "45%",marginBottom:"10px" }}>
             Search
           </Button>
         </div>
       </div>
     );
   };
-  let userloction = [[
+  let userloction = [
     { "id": "1", "name": "Location 1", "lat": "23.237541", "lng": "77.405549" },
     { "id": "2", "name": "Location 2", "lat": "23.240698", "lng": "77.395453" },
     { "id": "3", "name": "Location 3", "lat": "23.236874", "lng": "77.421120" },
@@ -99,11 +175,10 @@ const Map = () => {
     { "id": "8", "name": "Location 8", "lat": "23.245191", "lng": "77.438478" },
     { "id": "9", "name": "Location 9", "lat": "23.255556", "lng": "77.419581" },
     { "id": "10", "name": "Location 10", "lat": "23.264987", "lng": "77.397469" }
-]
 ];
   const map = () => {
     return (
-      <div style={{ backgroundColor: "cyan", height: "80vh" }}>
+      <div style={{ backgroundColor: "cyan",width:"80vw", height: "78vh"}}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "" }}
           defaultCenter={{
@@ -115,14 +190,26 @@ const Map = () => {
         >
 
           {/* {userloction.map((location) => {
-            return (
-              <LocationSearchingIcon
-                color="primary"
-                lat={location.lat}
-                lng={location.lng}/>)
-          })} */}
-          {/* <AnyReactComponent lat={59.955413} lng={30.337844} text="My Marker" /> */}
+             // console.log(location)
+             return (
+               <LocationSearchingIcon
+                 color="green"
+                 lat={location.lat}
+                 lng={location.lng}
+                 />)
+           })} */}
 
+          {initial.map((location) => {
+            console.log(location)
+            return (
+              <LocationOnIcon
+                color="secondary"
+                lat={location.latitude}
+                lng={location.longitude}
+                />)
+          })}
+          {/* <AnyReactComponent lat={59.955413} lng={30.337844} text="My Marker" /> */}
+   
           <LocationSearchingIcon
             color="primary"
             lat={latitude}
@@ -145,3 +232,4 @@ const Map = () => {
 };
 
 export default Map;
+

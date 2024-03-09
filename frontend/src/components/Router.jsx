@@ -8,6 +8,7 @@ import Profile from "./Profile";
 import News from "./News";
 import CommonDashboard from "./CommonDashboard";
 import Map from "./Map";
+import News from "./News";
 const Router = ()=>{
     return(
         <>
