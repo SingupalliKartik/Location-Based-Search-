@@ -6,11 +6,13 @@ import Dashboard from "./Dashboard";
 import SportDetailForm from "./SportsDetailForm";
 import Profile from "./Profile";
 import CommonDashboard from "./CommonDashboard";
+import Map from "./Map";
 const Router = ()=>{
     return(
         <>
         <Routes>
-        <Route exact path="/" Component={SignUp }></Route>
+        <Route exact path="/" Component={SignUp }></Route> 
+        <Route exact path="/map" Component={Map }></Route>
         <Route exact path="/login" Component={Login}></Route>
         <Route exact path="/dashboard/:id" Component={Dashboard}></Route>
         <Route exact path="/common_dashboard/:id" Component={CommonDashboard}></Route>
