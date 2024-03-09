@@ -20,7 +20,6 @@ const Profile = () => {
     })
     const [ini_authSave,fin_authSave]= useState("");
     const [initial,final] = useState({
-        Location:"",
         CoreSkill:"",
         DOB:"",
         Bio:"",
@@ -40,19 +39,27 @@ const Profile = () => {
     const savedata = async(event)=>{
         event.preventDefault();
         try {
-        const { Location,CoreSkill,DOB,Bio} = initial;
+        const {CoreSkill,DOB,Bio} = initial;
         const Email = ini_authSave.Email;
-        // console.log(Email)
-        // console.log(skillLevel)
-        // console.log(selectedSports)
-        console.log(Bio);
-        // console.log(Location+"CoreSkill "+CoreSkill+"DOB "+DOB+"Bio "+Bio)
-        const response = await axios.post(`http://localhost:1234/sportsDetailForm/${id}`,{
-          Location,CoreSkill,DOB,Bio,Email,skillLevel,selectedSports,firlocation
-        })
-         alert("Successfully Save ...")
-         if(response.status = 202){
-          navigate(`/dashboard/${id}`);
+        console.log(firlocation);
+         if(firlocation === "error" || firlocation === ""){
+             console.log("Hello How are you")
+             const response = await axios.post(`http://localhost:1234/sportsDetailForm/${id}`,{
+                CoreSkill,DOB,Bio,Email,skillLevel,selectedSports
+               })
+                alert("Successfully Save ...")
+                if(response.status = 202){
+                 navigate(`/common_dashboard/${id}`);
+                }
+     }
+         else{
+            const response = await axios.post(`http://localhost:1234/sportsDetailForm/${id}`,{
+                CoreSkill,DOB,Bio,Email,skillLevel,selectedSports,firlocation
+               })
+                alert("Successfully Save ...")
+                if(response.status = 202){
+                 navigate(`/dashboard/${id}`);
+                }
          }
     } catch (error) {
             alert(error);
@@ -120,15 +127,16 @@ const correct = (position)=>{
     // console.log("latitude "+latitude+"longitude "+longitude);
     seclocation(inilocation);
 }
+
+const notcorrect = (error)=>{
+    seclocation("error");
+    console.log(error.message);
+}
 const getlocation = (e)=>{
     e.preventDefault();
-	try {
-	const location =	navigator.geolocation.getCurrentPosition(correct);
-	} catch (error) {
-		alert(error);
-		console.log(error);
-	}
+	const location =	navigator.geolocation.getCurrentPosition(correct,notcorrect);
 }
+console.log(firlocation);
     useEffect(()=>{
         getuserprofile();
      },[])

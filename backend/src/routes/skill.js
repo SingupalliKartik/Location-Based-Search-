@@ -8,7 +8,7 @@ router.get("/sport_data/:id",async(req,res)=>{
         const id = req.params.id;
      const userdata = await Register.findOne({_id:id});
      const Email = userdata.Email;
-     const Name = userdata.Name;
+     const Name = userdata.FName;
      const sport_data = await SportData.findOne({Email});
      res.status(202).json({Name,sport_data});
     } catch (error) {
@@ -16,18 +16,22 @@ router.get("/sport_data/:id",async(req,res)=>{
         res.sendStatus(404);
     }
 })
+
 router.post("/sportsDetailForm/:id",async(req,res)=>{
     try {
         const id = req.params.id;
         const {CoreSkill,DOB,Bio,Email,skillLevel,firlocation} = req.body;
-        const {longitude,latitude} = firlocation;
-        console.log(req.body.selectedSports)
-    //  const userdata = await Register.findOne({_id:id});
-    //  const Email = userdata.Email;
-     const result = await SportData.create({
-        CoreSkill,DOB,Bio,Email,skillLevel,selectedSports:req.body.selectedSports,longitude,latitude
-        })
-     console.log(result);
+        if(firlocation === undefined ){
+            const result = await SportData.create({
+                CoreSkill,DOB,Bio,Email,skillLevel,selectedSports:req.body.selectedSports,longitude:"",latitude:""
+                })
+        }
+        else{
+            const {longitude,latitude} = firlocation;
+            const result = await SportData.create({
+                CoreSkill,DOB,Bio,Email,skillLevel,selectedSports:req.body.selectedSports,longitude,latitude
+                })
+        }
      res.sendStatus(202);
     } catch (error) {
         console.log(error);
