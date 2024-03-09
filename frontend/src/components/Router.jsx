@@ -8,8 +8,19 @@ import Profile from "./Profile";
 import News from "./News";
 import CommonDashboard from "./CommonDashboard";
 import Map from "./Map";
-import News from "./News";
+
+import MainContainer from "./Components/MainContainer";
+
+
+import Welcome from "./Components/Welcome";
+import ChatArea from "./Components/ChatArea";
+import Users from "./Components/Users";
+import CreateGroups from "./Components/CreateGroups";
+import Groups from "./Components/Groups";
+import { useDispatch, useSelector } from "react-redux";
 const Router = ()=>{
+    const dispatch = useDispatch();
+    const lightTheme = useSelector((state) => state.themeKey);
     return(
         <>
         <Routes>
@@ -17,6 +28,13 @@ const Router = ()=>{
         <Route exact path="/map" Component={Map }></Route>
         <Route exact path="/login" Component={Login}></Route>
         
+        <Route path="app" element={<MainContainer />}>
+          <Route path="welcome" element={<Welcome />}></Route>
+          <Route path="chat/:_id" element={<ChatArea />}></Route>
+          <Route path="users" element={<Users />}></Route>
+          <Route path="groups" element={<Groups />}></Route>
+          <Route path="create-groups" element={<CreateGroups />}></Route>
+        </Route>
         <Route exact path="/dashboard/:id" Component={Dashboard}></Route>
         <Route exact path="/common_dashboard/:id" Component={CommonDashboard}></Route>
         {/* <Route exact path="/sport_detail_form/:id" Component={SportDetailForm}></Route> */}
