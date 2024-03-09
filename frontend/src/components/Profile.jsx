@@ -7,6 +7,11 @@ const Profile = () => {
     const {id} = useParams();
     console.log(id);
     const [skillLevel, setSkillLevel] = useState('Beginner');
+    const [inilocation,finlocation] = useState({
+        longitude:"",
+        latitude:""
+    })
+    const [firlocation,seclocation] = useState("");
     const [ini_auth,fin_auth] = useState({
         FName:"",
         LName:"",
@@ -43,7 +48,7 @@ const Profile = () => {
         console.log(Bio);
         // console.log(Location+"CoreSkill "+CoreSkill+"DOB "+DOB+"Bio "+Bio)
         const response = await axios.post(`http://localhost:1234/sportsDetailForm/${id}`,{
-          Location,CoreSkill,DOB,Bio,Email,skillLevel,selectedSports
+          Location,CoreSkill,DOB,Bio,Email,skillLevel,selectedSports,firlocation
         })
          alert("Successfully Save ...")
          if(response.status = 202){
@@ -103,10 +108,30 @@ const Profile = () => {
         }
     };
 
+    // Get My Location
+const correct = (position)=>{
+	console.log(position)
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    finlocation((info)=>{
+        info.latitude = latitude;
+        info.longitude = longitude;
+    })
+    // console.log("latitude "+latitude+"longitude "+longitude);
+    seclocation(inilocation);
+}
+const getlocation = (e)=>{
+    e.preventDefault();
+	try {
+	const location =	navigator.geolocation.getCurrentPosition(correct);
+	} catch (error) {
+		alert(error);
+		console.log(error);
+	}
+}
     useEffect(()=>{
         getuserprofile();
      },[])
-
   return (
     <>
 <div className='profile-div bg-center bg-no-repeat bg-cover w-full h-[100vh] pt-4'>
@@ -131,7 +156,7 @@ const Profile = () => {
 
             <div>
                 <label class=" dark:text-gray-200" for="passwordConfirmation">Your Location</label>
-                <input onChange={setdata} name="Location" id="passwordConfirmation" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-transparent border border-gray-300 rounded-md bg-transparent dark:text-gray-300 dark:border-gray-600  dark:focus:border-red-600 "/>
+                <button onClick={getlocation} name="Location" id="passwordConfirmation" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-transparent border border-gray-300 rounded-md bg-transparent dark:text-gray-300 dark:border-gray-600  dark:focus:border-red-600 ">My current location</button>
             </div>
             <div>
                 <label class=" dark:text-gray-200" for="passwordConfirmation">Core Skill</label>

@@ -9,7 +9,7 @@ const Router = ()=>{
     return(
         <>
         <Routes>
-        <Route exact path="/" Component={SignUp}></Route>
+        <Route exact path="/" Component={SignUp }></Route>
         <Route exact path="/login" Component={Login}></Route>
         <Route exact path="/dashboard/:id" Component={Dashboard}></Route>
         {/* <Route exact path="/sport_detail_form/:id" Component={SportDetailForm}></Route> */}

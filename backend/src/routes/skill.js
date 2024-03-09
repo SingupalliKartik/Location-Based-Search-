@@ -19,12 +19,13 @@ router.get("/sport_data/:id",async(req,res)=>{
 router.post("/sportsDetailForm/:id",async(req,res)=>{
     try {
         const id = req.params.id;
-        const {Location,CoreSkill,DOB,Bio,Email,skillLevel} = req.body;
+        const {CoreSkill,DOB,Bio,Email,skillLevel,firlocation} = req.body;
+        const {longitude,latitude} = firlocation;
         console.log(req.body.selectedSports)
     //  const userdata = await Register.findOne({_id:id});
     //  const Email = userdata.Email;
      const result = await SportData.create({
-        Location,CoreSkill,DOB,Bio,Email,skillLevel,selectedSports:req.body.selectedSports
+        CoreSkill,DOB,Bio,Email,skillLevel,selectedSports:req.body.selectedSports,longitude,latitude
         })
      console.log(result);
      res.sendStatus(202);

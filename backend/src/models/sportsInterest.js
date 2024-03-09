@@ -3,10 +3,14 @@ const validator = require('validator');
 
 
 const Sport = new mongoose.Schema({
-    Location:{
+    longitude:{
         type:String,
-        
-    },
+        required:true,
+       },
+       latitude:{
+        type:String,
+        required:true,
+       },
     CoreSkill:{
      type:String,
      required:true,
