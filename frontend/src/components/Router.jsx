@@ -7,6 +7,7 @@ import SportDetailForm from "./SportsDetailForm";
 import Profile from "./Profile";
 import CommonDashboard from "./CommonDashboard";
 import Map from "./Map";
+import News from "./News";
 const Router = ()=>{
     return(
         <>
@@ -14,10 +15,15 @@ const Router = ()=>{
         <Route exact path="/" Component={SignUp }></Route> 
         <Route exact path="/map" Component={Map }></Route>
         <Route exact path="/login" Component={Login}></Route>
+        
         <Route exact path="/dashboard/:id" Component={Dashboard}></Route>
         <Route exact path="/common_dashboard/:id" Component={CommonDashboard}></Route>
         {/* <Route exact path="/sport_detail_form/:id" Component={SportDetailForm}></Route> */}
         <Route exact path="/sport_detail_form/:id" Component={Profile}></Route>
+
+
+        
+        <Route exact path="/headlines" Component={News}></Route>
         </Routes>
         </>
     )

@@ -18,7 +18,12 @@
   body {
     background-color: rgb(12, 12, 12);
     color: white;
+    transition: background-color 1s ease, color 1s ease; 
   }
   .profile-div {
     background-image: url(https://media.tenor.com/i0jurz_PMSEAAAAC/dark-galaxy.gif);
+  }
+  .dark-mode {
+    background-color: white;
+    color: black;
   }
