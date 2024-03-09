@@ -10,8 +10,8 @@ function App() {
 
   return (
     <>
-    {/* <Router/> */}
-    <Profile></Profile>
+    <Router/>
+    {/* <Profile></Profile> */}
  </>
   )
 }

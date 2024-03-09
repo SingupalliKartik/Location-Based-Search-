@@ -19,11 +19,12 @@ router.get("/sport_data/:id",async(req,res)=>{
 router.post("/sportsDetailForm/:id",async(req,res)=>{
     try {
         const id = req.params.id;
-        const { GameName,Levels,Location} = req.body;
-     const userdata = await Register.findOne({_id:id});
-     const Email = userdata.Email;
+        const {Location,CoreSkill,DOB,Bio,Email,skillLevel} = req.body;
+        console.log(req.body.selectedSports)
+    //  const userdata = await Register.findOne({_id:id});
+    //  const Email = userdata.Email;
      const result = await SportData.create({
-         GameName,Levels,Location,Email
+        Location,CoreSkill,DOB,Bio,Email,skillLevel,selectedSports:req.body.selectedSports
         })
      console.log(result);
      res.sendStatus(202);

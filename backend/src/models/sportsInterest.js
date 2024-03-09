@@ -3,15 +3,30 @@ const validator = require('validator');
 
 
 const Sport = new mongoose.Schema({
-    GameName:{
-        type:String,
-    },
-    Levels:{
-     type:String
-    },
     Location:{
-        type:String
+        type:String,
+        
     },
+    CoreSkill:{
+     type:String,
+     required:true,
+    },
+    DOB:{
+        type:String,
+        required:true,
+    },
+    Bio:{
+        type:String,
+        required:true
+    },
+    skillLevel:{
+        type:String,
+        required:true,
+    },
+    selectedSports:[{
+        type:String,
+        required:true,
+    }],
     Email:{
         type:String,
         required:true,
