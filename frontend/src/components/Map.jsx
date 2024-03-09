@@ -51,11 +51,10 @@ const Map = () => {
 
   const header = () => {
     return (
-      <div style={{ backgroundColor: "white" }}>
+      <div className="bg-transparent" style={{ backgroundColor: "white" }}>
         <Typography variant="h4" style={{ textAlign: "center" }}>
           MATCHFINDER
         </Typography>
-
         <TextField
           label="Search for your match"
           variant="outlined"
@@ -114,15 +113,15 @@ const Map = () => {
           center={{ lat: latitude, lng: longitude }}
         >
 
-          {/* {userloction.map((location) => {
+          {userloction.map((location) => {
             return (
               <LocationSearchingIcon
                 color="primary"
                 lat={location.lat}
                 lng={location.lng}/>)
-          })} */}
+          })}
           {/* <AnyReactComponent lat={59.955413} lng={30.337844} text="My Marker" /> */}
-
+   
           <LocationSearchingIcon
             color="primary"
             lat={latitude}
