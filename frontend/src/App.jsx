@@ -6,14 +6,19 @@ import Router from './components/Router'
 import Profile from './components/Profile'
 import Sidebar from './components/sidebar'
 import News from './components/News'
+import FIndplayer from './components/FIndplayer'
+import UserData from './components/UserData'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-    <Router/>
+    {/* <Router/> */}
     {/* <Profile></Profile> */}
+    {/* <Sidebar></Sidebar> */}
+    {/* <FIndplayer></FIndplayer> */}
+    <UserData></UserData>
  </>
   )
 }
