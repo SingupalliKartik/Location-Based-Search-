@@ -31,7 +31,7 @@ const Login = ()=>{
       event.preventDefault(); 
       try {
       const {Email,Password} = initial;
-     const result  = await axios.post("http://localhost:5000/login",
+     const result  = await axios.post("http://localhost:1234/login",
      {Email,Password});
      console.log(result);
      const status = result.status;
