@@ -49,4 +49,15 @@ router.post("/login",async(req,res)=>{
 
     }
 })
+
+router.get("/user_auth_data/:id",async(req,res)=>{
+  try {
+    const id = req.params.id;
+ const userdata = await Register.findOne({_id:id},"-Password");
+ res.status(202).json({userdata});
+} catch (error) {
+    console.log(error);
+    res.sendStatus(404);
+}
+})
 module.exports = router;

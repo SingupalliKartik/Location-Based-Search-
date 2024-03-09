@@ -1,8 +1,88 @@
-import React,{useState} from 'react'
+import {React,useEffect,useState} from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 const Profile = () => {
+    const navigate = useNavigate();
+    const {id} = useParams();
+    console.log(id);
     const [skillLevel, setSkillLevel] = useState('Beginner');
+    const [inilocation,finlocation] = useState({
+        longitude:"",
+        latitude:""
+    })
+    const [firlocation,seclocation] = useState("");
+    const [ini_auth,fin_auth] = useState({
+        FName:"",
+        LName:"",
+        Email:"",
+        Number:""
+    })
+    const [ini_authSave,fin_authSave]= useState("");
+    const [initial,final] = useState({
+        CoreSkill:"",
+        DOB:"",
+        Bio:"",
+    })
+    const [selectedSports, setSelectedSports] = useState([]);
+    const setdata = (event)=>{
+        const {name,value} = event.target;
+        final((info)=>{
+            return{
+            ...info,
+            [name] : value
+            }
+        })
+    }
 
+      
+    const savedata = async(event)=>{
+        event.preventDefault();
+        try {
+        const {CoreSkill,DOB,Bio} = initial;
+        const Email = ini_authSave.Email;
+        console.log(firlocation);
+         if(firlocation === "error" || firlocation === ""){
+             console.log("Hello How are you")
+             const response = await axios.post(`http://localhost:1234/sportsDetailForm/${id}`,{
+                CoreSkill,DOB,Bio,Email,skillLevel,selectedSports
+               })
+                alert("Successfully Save ...")
+                if(response.status = 202){
+                 navigate(`/common_dashboard/${id}`);
+                }
+     }
+         else{
+            const response = await axios.post(`http://localhost:1234/sportsDetailForm/${id}`,{
+                CoreSkill,DOB,Bio,Email,skillLevel,selectedSports,firlocation
+               })
+                alert("Successfully Save ...")
+                if(response.status = 202){
+                 navigate(`/dashboard/${id}`);
+                }
+         }
+    } catch (error) {
+            alert(error);
+            console.log(error);
+    }
+    }
+    
+    const getuserprofile = async()=>{
+      try {
+          let userdata = await axios.get(`http://localhost:1234/user_auth_data/${id}`);
+          userdata = userdata.data.userdata;
+         fin_auth((info)=>{
+          info.FName = userdata.FName;
+          info.LName = userdata.LName;
+          info.Email = userdata.Email;
+          info.Number = userdata.Number;
+         })
+         fin_authSave(ini_auth);
+      } catch (error) {
+          console.log(error);
+          alert(error);
+      }
+    }
     const handleSkillChange = (event) => {
         const value = parseInt(event.target.value);
         switch (value) {
@@ -26,8 +106,6 @@ const Profile = () => {
                 break;
         }
     };
-    const [selectedSports, setSelectedSports] = useState([]);
-
     const handleCheckboxChange = (event) => {
         const { value } = event.target;
         if (selectedSports.includes(value)) {
@@ -37,6 +115,31 @@ const Profile = () => {
         }
     };
 
+    // Get My Location
+const correct = (position)=>{
+	console.log(position)
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    finlocation((info)=>{
+        info.latitude = latitude;
+        info.longitude = longitude;
+    })
+    // console.log("latitude "+latitude+"longitude "+longitude);
+    seclocation(inilocation);
+}
+
+const notcorrect = (error)=>{
+    seclocation("error");
+    console.log(error.message);
+}
+const getlocation = (e)=>{
+    e.preventDefault();
+	const location =	navigator.geolocation.getCurrentPosition(correct,notcorrect);
+}
+console.log(firlocation);
+    useEffect(()=>{
+        getuserprofile();
+     },[])
   return (
     <>
 <div className='profile-div bg-center bg-no-repeat bg-cover w-full h-[100vh] pt-4'>
@@ -46,26 +149,26 @@ const Profile = () => {
         <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
             <div>
                 <label class=" dark:text-gray-200" for="username">Full Name</label>
-                <input id="username" type="text" class="block  w-full px-4 py-2 mt-2 text-gray-700 bg-transparent border border-gray-300 rounded-md  dark:text-gray-300 dark:border-gray-600  dark:focus:border-red-600  "/>
+                <input id="username" type="text" value={ini_authSave.FName+" "+ini_authSave.LName} class="block  w-full px-4 py-2 mt-2 text-gray-700 bg-transparent border border-gray-300 rounded-md  dark:text-gray-300 dark:border-gray-600  dark:focus:border-red-600  "/>
             </div>
 
             <div>
                 <label class=" dark:text-gray-200" for="emailAddress">Email Address</label>
-                <input id="emailAddress" type="email" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-transparent border border-gray-300 rounded-md bg-transparent dark:text-gray-300 dark:border-gray-600  dark:focus:border-red-600 "/>
+                <input id="emailAddress" type="email" value={ini_authSave.Email} class="block w-full px-4 py-2 mt-2 text-gray-700 bg-transparent border border-gray-300 rounded-md bg-transparent dark:text-gray-300 dark:border-gray-600  dark:focus:border-red-600 "/>
             </div>
 
             <div>
                 <label class=" dark:text-gray-200" for="password">Phone Number</label>
-                <input id="password" type="number" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-transparent border border-gray-300 rounded-md bg-transparent dark:text-gray-300 dark:border-gray-600  dark:focus:border-red-600 "/>
+                <input id="password" type="number" value={ini_authSave.Number} class="block w-full px-4 py-2 mt-2 text-gray-700 bg-transparent border border-gray-300 rounded-md bg-transparent dark:text-gray-300 dark:border-gray-600  dark:focus:border-red-600 "/>
             </div>
 
             <div>
                 <label class=" dark:text-gray-200" for="passwordConfirmation">Your Location</label>
-                <input id="passwordConfirmation" type="password" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-transparent border border-gray-300 rounded-md bg-transparent dark:text-gray-300 dark:border-gray-600  dark:focus:border-red-600 "/>
+                <button onClick={getlocation} name="Location" id="passwordConfirmation" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-transparent border border-gray-300 rounded-md bg-transparent dark:text-gray-300 dark:border-gray-600  dark:focus:border-red-600 ">My current location</button>
             </div>
             <div>
                 <label class=" dark:text-gray-200" for="passwordConfirmation">Core Skill</label>
-                <select class="block w-full px-4 py-2 mt-2 text-gray-700 bg-transparent border border-gray-300 rounded-md bg-transparent dark:text-gray-300 dark:border-gray-600  dark:focus:border-red-600 ">
+                <select onChange={setdata} name="CoreSkill" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-transparent border border-gray-300 rounded-md bg-transparent dark:text-gray-300 dark:border-gray-600  dark:focus:border-red-600 ">
                 <option className='bg-[#111111] ' value="beginner">Cricket</option>
                                             <option className='bg-[#111111]' value="intermediate">Football</option>
                                             <option className='bg-[#111111]' value="advanced">Badminton</option>
@@ -77,7 +180,7 @@ const Profile = () => {
             <label className="dark:text-gray-200">Other Skills</label>
             <div className='flex gap-x-4'>
                 <label className="block">
-                    <input className='mr-1'
+                    <input  className='mr-1'
                         type="checkbox"
                         value="Cricket"
                         onChange={handleCheckboxChange}
@@ -153,11 +256,11 @@ const Profile = () => {
         </div>  
             <div>
                 <label class=" dark:text-gray-200">Date of Birth</label>
-                <input id="date" type="date" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-transparent border border-gray-300 rounded-md bg-transparent dark:text-gray-300 dark:border-gray-600  dark:focus:border-red-600 "/>
+                <input onChange={setdata} name="DOB" id="date" type="date" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-transparent border border-gray-300 rounded-md bg-transparent dark:text-gray-300 dark:border-gray-600  dark:focus:border-red-600 "/>
             </div>
             <div>
-                <label class=" dark:text-gray-200" for="passwordConfirmation">Additonal Bio</label>
-                <textarea onResize={false} id="textarea" type="textarea" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-transparent border border-gray-300 rounded-md bg-transparent dark:text-gray-300 dark:border-gray-600  dark:focus:border-red-600 "></textarea>
+                <label  class=" dark:text-gray-200" for="passwordConfirmation">Additonal Bio</label>
+                <textarea onChange={setdata} name="Bio" onResize={false} id="textarea" type="textarea" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-transparent border border-gray-300 rounded-md bg-transparent dark:text-gray-300 dark:border-gray-600  dark:focus:border-red-600 "></textarea>
             </div>
             <div>
                 <label class="block text-sm font-medium ">
@@ -184,7 +287,7 @@ const Profile = () => {
         </div>
 
         <div class="flex justify-end mt-6">
-            <button class="px-6 py-2 leading-5  transition-colors duration-200 transform bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:bg-gray-600">Save</button>
+            <button onClick={savedata} class="px-6 py-2 leading-5  transition-colors duration-200 transform bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:bg-gray-600">Save</button>
         </div>
     </form>
 </section>

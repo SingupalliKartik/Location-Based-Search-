@@ -12,10 +12,8 @@ function App() {
 
   return (
     <>
-    {/* <Router/> */}
+    <Router/>
     {/* <Profile></Profile> */}
-    {/* <Sidebar></Sidebar> */}
-    <News></News>
  </>
   )
 }
