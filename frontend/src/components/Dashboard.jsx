@@ -24,6 +24,7 @@ const Dashboard  = ()=>{
 
 // Get My Location
 const correct = (position)=>{
+	console.log(position)
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
     console.log("latitude "+latitude+"longitude "+longitude);
@@ -31,7 +32,6 @@ const correct = (position)=>{
 const getlocation = ()=>{
 	try {
 	const location =	navigator.geolocation.getCurrentPosition(correct);
-
 	} catch (error) {
 		alert(error);
 		console.log(error);
