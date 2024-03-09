@@ -5,13 +5,64 @@ import Slider from "@mui/material/Slider";
 import Button from "@mui/material/Button";
 import GoogleMapReact from "google-map-react";
 import LocationSearchingIcon from "@mui/icons-material/LocationSearching";
-
-
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 const Map = () => {
+  const {id} = useParams();
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
+  const [initial,final] = useState([{   
+    id:"",
+CoreSkill:"",
+latitude:"",
+longitude:"",
+skillLevel:"",
+selectedSports:""
+  }])
+    const navigate = useNavigate();
+    const getdata  = async()=>{
+        try {
+           const result = await axios.get(`http://localhost:1234/sport_data/${id}`) ;
+           const sport_data = result.data.sport_data;
+           sport_data.map((info)=>{
+            final((data)=>[
+              ...data,{
+                id:info._id,
+                CoreSkill:info.CoreSkill,
+                latitude:info.latitude,
+                longitude:info.longitude,
+                skillLevel:info.skillLevel,
+                selectedSports:info.selectedSports
+              }
+            ])
+           })
+           
+        } catch (error) {
+            console.log(error);
+            alert(error);
+        }
+    }
+
+console.log(initial)
+// // Get My Location
+// const correct = (position)=>{
+// 	console.log(position)
+//     const latitude = position.coords.latitude;
+//     const longitude = position.coords.longitude;
+//     console.log("latitude "+latitude+"longitude "+longitude);
+// }
+// const getlocation = ()=>{
+// 	try {
+// 	const location =	navigator.geolocation.getCurrentPosition(correct);
+// 	} catch (error) {
+// 		alert(error);
+// 		console.log(error);
+// 	}
+// }
 
   useEffect(() => {
+    getdata();
     getUserLocation();
   }, []);
 
@@ -90,7 +141,7 @@ const Map = () => {
       </div>
     );
   };
-  let userloction = [[
+  let userloction = [
     { "id": "1", "name": "Location 1", "lat": "23.237541", "lng": "77.405549" },
     { "id": "2", "name": "Location 2", "lat": "23.240698", "lng": "77.395453" },
     { "id": "3", "name": "Location 3", "lat": "23.236874", "lng": "77.421120" },
@@ -101,7 +152,6 @@ const Map = () => {
     { "id": "8", "name": "Location 8", "lat": "23.245191", "lng": "77.438478" },
     { "id": "9", "name": "Location 9", "lat": "23.255556", "lng": "77.419581" },
     { "id": "10", "name": "Location 10", "lat": "23.264987", "lng": "77.397469" }
-]
 ];
   const map = () => {
     return (
@@ -116,12 +166,24 @@ const Map = () => {
           center={{ lat: latitude, lng: longitude }}
         >
 
-          {userloction.map((location) => {
+          {/* {userloction.map((location) => {
+            // console.log(location)
             return (
               <LocationSearchingIcon
-                color="primary"
+                color="green"
                 lat={location.lat}
-                lng={location.lng}/>)
+                lng={location.lng}
+                />)
+          })} */}
+
+          {initial.map((location) => {
+            console.log(location)
+            return (
+              <LocationOnIcon
+                color="secondary"
+                lat={location.latitude}
+                lng={location.longitude}
+                />)
           })}
           {/* <AnyReactComponent lat={59.955413} lng={30.337844} text="My Marker" /> */}
    
