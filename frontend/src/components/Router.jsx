@@ -5,6 +5,7 @@ import Login from "./Login";
 import Dashboard from "./Dashboard";
 import SportDetailForm from "./SportsDetailForm";
 import Profile from "./Profile";
+import News from "./News";
 import CommonDashboard from "./CommonDashboard";
 import Map from "./Map";
 import News from "./News";
