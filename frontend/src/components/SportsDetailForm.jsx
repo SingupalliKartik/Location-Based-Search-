@@ -24,7 +24,7 @@ const SportDetailForm = ()=>{
           event.preventDefault();
           try {
           const { GameName,Levels,Location} = initial;
-          const response = await axios.post(`http://localhost:5000/sportsDetailForm/${id}`,{
+          const response = await axios.post(`http://localhost:1234/sportsDetailForm/${id}`,{
             GameName,Levels,Location
           })
            alert("Successfully Save ...")

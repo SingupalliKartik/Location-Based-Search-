@@ -9,7 +9,7 @@ const Dashboard  = ()=>{
 
     const getdata  = async()=>{
         try {
-           const result = await axios.get(`http://localhost:5000/sport_data/${id}`) ;
+           const result = await axios.get(`http://localhost:1234/sport_data/${id}`) ;
            const {Name,sport_data} = result.data;
            if(sport_data===null || sport_data===undefined){
           navigate(`/sport_detail_form/${id}`)
