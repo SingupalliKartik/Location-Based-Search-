@@ -31,6 +31,7 @@ const SignUp = ()=>{
            localStorage.setItem('token', Token);
            axios.defaults.headers.common["Authorization"] = Token;
           alert("Successfully Save ...")
+          navigate("/login");
       } catch (error) {
               alert(error);
               console.log(error);
