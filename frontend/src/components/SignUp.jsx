@@ -5,7 +5,8 @@ import axios from "axios";
 const SignUp = ()=>{
     const navigate = useNavigate();
       const [initial,final] = useState({
-          Name:"",
+          FName:"",
+          LName:"",
           Email:"",
           Password:"",
           Number:""
@@ -23,15 +24,15 @@ const SignUp = ()=>{
       const savedata = async(event)=>{
           event.preventDefault();
           try {
-          const {Name,Email,Password,Number} = initial;
+          const {FName,LName,Email,Password,Number} = initial;
           const response = await axios.post("http://localhost:1234/signup",{
-              Name,Email,Password,Number
+              FName,LName,Email,Password,Number
           })
            const {Token,id} = response.data;
            localStorage.setItem('token', Token);
            axios.defaults.headers.common["Authorization"] = Token;
           alert("Successfully Save ...")
-          navigate("/login");
+          navigate(`/dashboard/${id}`);
       } catch (error) {
               alert(error);
               console.log(error);
@@ -74,22 +75,22 @@ const SignUp = ()=>{
                                     <label htmlFor="" className="text-xs font-semibold px-1">First name</label>
                                     <div className="flex">
                                         <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                                        <input type="text" className="w-full bg-transparent -ml-10 pl-10 pr-3 py-1 rounded-lg border-2 border-gray-200 outline-none focus:border-red-500" placeholder="John" />
+                                        <input type="text" name="FName"  onChange={setdata}  className="w-full bg-transparent -ml-10 pl-10 pr-3 py-1 rounded-lg border-2 border-gray-200 outline-none focus:border-red-500" placeholder="John" />
                                     </div>
                                 </div>
                                 <div className="w-1/2 px-3 mb-5">
                                     <label htmlFor="" className="text-xs font-semibold px-1">Last name</label>
                                     <div className="flex">
                                         <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                                        <input type="text" className="w-full bg-transparent -ml-10 pl-10 pr-3 py-1 rounded-lg border-2 border-gray-200 outline-none focus:border-red-500" placeholder="Smith" />
+                                        <input type="text" name="LName" onChange={setdata}  className="w-full bg-transparent -ml-10 pl-10 pr-3 py-1 rounded-lg border-2 border-gray-200 outline-none focus:border-red-500" placeholder="Smith" />
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex">
+                            {/* <div className="flex">
                                 <div className="w-full mb-5">
                                     <label htmlFor="" className="text-xs font-semibold px-1">Skill Level</label>
                                     <div className="flex items-center justify-center">
-                                        <select className="w-full bg-transparent pl-4 pr-3 py-1 rounded-lg border-2 border-gray-200 outline-none focus:border-red-500">
+                                        <select  onChange={setdata} className="w-full bg-transparent pl-4 pr-3 py-1 rounded-lg border-2 border-gray-200 outline-none focus:border-red-500">
                                         <option className='bg-[#111111] ' >Select</option>
                                             <option className='bg-[#111111] ' value="beginner">Beginner</option>
                                             <option className='bg-[#111111]' value="intermediate">Intermediate</option>
@@ -99,12 +100,12 @@ const SignUp = ()=>{
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="flex">
+                            </div> */}
+                            {/* <div className="flex">
                                 <div className="w-full mb-5">
                                     <label htmlFor="" className="text-xs font-semibold px-1">Interests</label>
                                     <div className="flex items-center justify-center">
-                                        <select className="w-full bg-transparent pl-4 pr-3 py-1 rounded-lg border-2 border-gray-200 outline-none focus:border-red-500">
+                                        <select  onChange={setdata} className="w-full bg-transparent pl-4 pr-3 py-1 rounded-lg border-2 border-gray-200 outline-none focus:border-red-500">
                                         <option className='bg-[#111111] ' >Select</option>
                                             <option className='bg-[#111111] ' value="beginner">Cricket</option>
                                             <option className='bg-[#111111]' value="intermediate">Football</option>
@@ -114,7 +115,7 @@ const SignUp = ()=>{
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="flex -mx-3">
     
 </div>
@@ -123,7 +124,16 @@ const SignUp = ()=>{
                                     <label htmlFor="" className="text-xs font-semibold px-1">Email</label>
                                     <div className="flex">
                                         <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-email-outline text-gray-400 text-lg"></i></div>
-                                        <input type="email" className="w-full bg-transparent -ml-10 pl-10 pr-3 py-1 rounded-lg border-2 border-gray-200 outline-none focus:border-red-500" placeholder="johnsmith@example.com" />
+                                        <input onChange={setdata}  name="Email" type="email" className="w-full bg-transparent -ml-10 pl-10 pr-3 py-1 rounded-lg border-2 border-gray-200 outline-none focus:border-red-500" placeholder="johnsmith@example.com" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex -mx-3">
+                                <div className="w-full px-3 mb-5">
+                                    <label htmlFor="" className="text-xs font-semibold px-1">Number</label>
+                                    <div className="flex">
+                                        <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-email-outline text-gray-400 text-lg"></i></div>
+                                        <input onChange={setdata}  name="Number" type="number" className="w-full bg-transparent -ml-10 pl-10 pr-3 py-1 rounded-lg border-2 border-gray-200 outline-none focus:border-red-500" placeholder="8085951xyz" />
                                     </div>
                                 </div>
                             </div>
@@ -132,13 +142,13 @@ const SignUp = ()=>{
                                     <label htmlFor="" className="text-xs font-semibold px-1">Password</label>
                                     <div className="flex">
                                         <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-lock-outline text-gray-400 text-lg"></i></div>
-                                        <input type="password" className="w-full bg-transparent -ml-10 pl-10 pr-3 py-1 rounded-lg border-2 border-gray-200 outline-none focus:border-red-500" placeholder="************" />
+                                        <input onChange={setdata} name="Password"  type="password" className="w-full bg-transparent -ml-10 pl-10 pr-3 py-1 rounded-lg border-2 border-gray-200 outline-none focus:border-red-500" placeholder="************" />
                                     </div>
                                 </div>
                             </div>
                             <div className="flex -mx-3">
                                 <div className="w-full px-3 mb-5">
-                                    <button className="block w-full max-w-xs mx-auto bg-red-700 hover:bg-red-800  text-white rounded-lg px-3 py-3 font-semibold">REGISTER NOW</button>
+                                    <button onClick={savedata} className="block w-full max-w-xs mx-auto bg-red-700 hover:bg-red-800  text-white rounded-lg px-3 py-3 font-semibold">REGISTER NOW</button>
                                 </div>
                             </div>
                         </div>

@@ -7,9 +7,9 @@ const bcrypt = require('bcryptjs');
 //Sign Up 
 router.post("/signup",async(req,res)=>{
     try {
-       const {Name , Email,Password,Number } = req.body;
+       const {FName,LName, Email,Password,Number } = req.body;
       const response =   await Register.create({
-           Name , Email,Password,Number
+           FName,LName , Email,Password,Number
        })
        const id = response._id;
        console.log(id)
@@ -30,7 +30,7 @@ router.post("/login",async(req,res)=>{
         if(result!=null){
             const UserPassword = result.Password;
             const id = result._id;
-            const Name = result.Name;
+            const Name = result.FName;
           const check = await bcrypt.compare(Password,UserPassword);
           if(check === true){
             const Token = jwt.sign({_id:id},process.env.Sectet_Key1);

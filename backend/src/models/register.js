@@ -4,7 +4,11 @@ const validator = require('validator');
 
 
 const Register = new mongoose.Schema({
-    Name:{
+    FName:{
+        type:String,
+        required:true
+    },
+    LName:{
         type:String,
         required:true
     },
