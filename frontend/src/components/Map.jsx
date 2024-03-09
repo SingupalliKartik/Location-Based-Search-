@@ -45,21 +45,9 @@ selectedSports:""
     }
 
 console.log(initial)
-// // Get My Location
-// const correct = (position)=>{
-// 	console.log(position)
-//     const latitude = position.coords.latitude;
-//     const longitude = position.coords.longitude;
-//     console.log("latitude "+latitude+"longitude "+longitude);
-// }
-// const getlocation = ()=>{
-// 	try {
-// 	const location =	navigator.geolocation.getCurrentPosition(correct);
-// 	} catch (error) {
-// 		alert(error);
-// 		console.log(error);
-// 	}
-// }
+const [selectedLocation, setSelectedLocation] = useState(null);
+const [nearbyLocations, setNearbyLocations] = useState([]);
+
 
   useEffect(() => {
     getdata();
@@ -77,12 +65,48 @@ console.log(initial)
   const showPosition = (position) => {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
-    console.log("Latitude: " + latitude + ", Longitude: " + longitude);
-    // You can perform further actions with the user's location here
     setLatitude(latitude);
     setLongitude(longitude);
+      filterNearbyLocations(latitude, longitude);
   };
 
+const calculateDistance = (lat1, lon1, lat2, lon2) => {
+  const R = 6371; // Radius of the earth in km
+  const dLat = (lat2 - lat1) * (Math.PI / 180); // deg2rad below
+  const dLon = (lon2 - lon1) * (Math.PI / 180);
+  const a =
+    0.5 -
+    Math.cos(dLat) / 2 +
+    (Math.cos(lat1 * (Math.PI / 180)) *
+      Math.cos(lat2 * (Math.PI / 180)) *
+      (1 - Math.cos(dLon))) /
+      2;
+
+  return R * 2 * Math.asin(Math.sqrt(a)); // Distance in km
+};
+
+const filterNearbyLocations = (lat, lon) => {
+  const nearby = userLocations.filter((location) => {
+    const distance = calculateDistance(lat, lon, location.latitude, location.longitude);
+    return distance < 10;
+  });
+  setNearbyLocations(nearby);
+};
+
+const pinpointLocation = (location) => {
+  setSelectedLocation(location);
+  const distance = calculateDistance(
+    latitude,
+    longitude,
+    location.latitude,
+    location.longitude
+  );
+  alert(
+    `Name: ${location.name}, ID: ${location.id}, Distance: ${distance.toFixed(
+      2
+    )} km`
+  );
+};
   const showError = (error) => {
     switch (error.code) {
       case error.PERMISSION_DENIED:
@@ -112,7 +136,6 @@ console.log(initial)
           label="Search for your match"
           variant="outlined"
           style={{ width: "95%",margin:"auto",display:"flex",height:"35px" }}
-          // className="mt-20"
         />
         <div
           style={{
@@ -167,14 +190,14 @@ console.log(initial)
         >
 
           {/* {userloction.map((location) => {
-            // console.log(location)
-            return (
-              <LocationSearchingIcon
-                color="green"
-                lat={location.lat}
-                lng={location.lng}
-                />)
-          })} */}
+             // console.log(location)
+             return (
+               <LocationSearchingIcon
+                 color="green"
+                 lat={location.lat}
+                 lng={location.lng}
+                 />)
+           })} */}
 
           {initial.map((location) => {
             console.log(location)
@@ -209,3 +232,4 @@ console.log(initial)
 };
 
 export default Map;
+
