@@ -8,7 +8,6 @@ import LocationSearchingIcon from "@mui/icons-material/LocationSearching";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-
 const Map = () => {
   const {id} = useParams();
   const [latitude, setLatitude] = useState(0);
@@ -46,23 +45,9 @@ selectedSports:""
     }
 
 console.log(initial)
-// // Get My Location
-// const correct = (position)=>{
-// 	console.log(position)
-//     const latitude = position.coords.latitude;
-//     const longitude = position.coords.longitude;
-//     console.log("latitude "+latitude+"longitude "+longitude);
-// }
-// const getlocation = ()=>{
-// 	try {
-// 	const location =	navigator.geolocation.getCurrentPosition(correct);
-// 	} catch (error) {
-// 		alert(error);
-// 		console.log(error);
-// 	}
-// }
-  const [selectedLocation, setSelectedLocation] = useState(null);
-  const [nearbyLocations, setNearbyLocations] = useState([]);
+const [selectedLocation, setSelectedLocation] = useState(null);
+const [nearbyLocations, setNearbyLocations] = useState([]);
+
 
   useEffect(() => {
     getdata();
@@ -80,56 +65,48 @@ console.log(initial)
   const showPosition = (position) => {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
-    console.log("Latitude: " + latitude + ", Longitude: " + longitude);
-    // You can perform further actions with the user's location here
     setLatitude(latitude);
     setLongitude(longitude);
-    filterNearbyLocations(latitude, longitude);
+      filterNearbyLocations(latitude, longitude);
   };
 
-  const calculateDistance = (lat1, lon1, lat2, lon2) => {
-    const R = 6371; // Radius of the earth in km
-    const dLat = (lat2 - lat1) * (Math.PI / 180); // deg2rad below
-    const dLon = (lon2 - lon1) * (Math.PI / 180);
-    const a =
-      0.5 -
-      Math.cos(dLat) / 2 +
-      (Math.cos(lat1 * (Math.PI / 180)) *
-        Math.cos(lat2 * (Math.PI / 180)) *
-        (1 - Math.cos(dLon))) /
-        2;
+const calculateDistance = (lat1, lon1, lat2, lon2) => {
+  const R = 6371; // Radius of the earth in km
+  const dLat = (lat2 - lat1) * (Math.PI / 180); // deg2rad below
+  const dLon = (lon2 - lon1) * (Math.PI / 180);
+  const a =
+    0.5 -
+    Math.cos(dLat) / 2 +
+    (Math.cos(lat1 * (Math.PI / 180)) *
+      Math.cos(lat2 * (Math.PI / 180)) *
+      (1 - Math.cos(dLon))) /
+      2;
 
-    return R * 2 * Math.asin(Math.sqrt(a)); // Distance in km
-  };
+  return R * 2 * Math.asin(Math.sqrt(a)); // Distance in km
+};
 
-  const filterNearbyLocations = (lat, lon) => {
-    const nearby = userLocations.filter((location) => {
-      const distance = calculateDistance(lat, lon, location.latitude, location.longitude);
-      return distance < 10;
-    });
-    setNearbyLocations(nearby);
-  };
+const filterNearbyLocations = (lat, lon) => {
+  const nearby = userLocations.filter((location) => {
+    const distance = calculateDistance(lat, lon, location.latitude, location.longitude);
+    return distance < 10;
+  });
+  setNearbyLocations(nearby);
+};
 
-  const pinpointLocation = (location) => {
-    setSelectedLocation(location);
-    const distance = calculateDistance(
-      latitude,
-      longitude,
-      location.latitude,
-      location.longitude
-    );
-    alert(
-      `Name: ${location.name}, ID: ${location.id}, Distance: ${distance.toFixed(
-        2
-      )} km`
-    );
-  };
-
-  // const pinpointLocation = (location) => {
-  //   // Display information about the clicked location
-  //   alert(`Name: ${location.name}, ID: ${location.id}, Latitude: ${location.latitude}, Longitude: ${location.longitude}`);
-  // };
-
+const pinpointLocation = (location) => {
+  setSelectedLocation(location);
+  const distance = calculateDistance(
+    latitude,
+    longitude,
+    location.latitude,
+    location.longitude
+  );
+  alert(
+    `Name: ${location.name}, ID: ${location.id}, Distance: ${distance.toFixed(
+      2
+    )} km`
+  );
+};
   const showError = (error) => {
     switch (error.code) {
       case error.PERMISSION_DENIED:
@@ -153,15 +130,12 @@ console.log(initial)
     return (
       <div className="bg-transparent" style={{ backgroundColor: "white" }}>
         <Typography  style={{ textAlign: "center" }}>
-      <div className="bg-transparent" style={{ backgroundColor: "white" }}>
-        <Typography variant="h4" style={{ textAlign: "center" }}>
           MATCHFINDER
         </Typography>
         <TextField
           label="Search for your match"
           variant="outlined"
           style={{ width: "95%",margin:"auto",display:"flex",height:"35px" }}
-          // className="mt-20"
         />
         <div
           style={{
@@ -202,42 +176,28 @@ console.log(initial)
     { "id": "9", "name": "Location 9", "lat": "23.255556", "lng": "77.419581" },
     { "id": "10", "name": "Location 10", "lat": "23.264987", "lng": "77.397469" }
 ];
-
-  const userLocations = [
-    { id: "1", name: "Location 1", latitude: 23.237541, longitude: 77.405549 },
-    { id: "2", name: "Location 2", latitude: 23.240698, longitude: 77.395453 },
-    { id: "3", name: "Location 3", latitude: 23.236874, longitude: 77.421120 },
-    { id: "4", name: "Location 4", latitude: 23.243567, longitude: 77.397823 },
-    { id: "5", name: "Location 5", latitude: 23.252890, longitude: 77.378740 },
-    { id: "6", name: "Location 6", latitude: 23.239640, longitude: 77.432620 },
-    { id: "7", name: "Location 7", latitude: 23.229382, longitude: 77.412512 },
-    { id: "8", name: "Location 8", latitude: 23.245191, longitude: 77.438478 },
-    { id: "9", name: "Location 9", latitude: 23.255556, longitude: 77.419581 },
-    { id: "10", name: "Location 10", latitude: 23.264987, longitude: 77.397469 },
-  ];
-
   const map = () => {
     return (
       <div style={{ backgroundColor: "cyan",width:"80vw", height: "78vh"}}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "" }}
           defaultCenter={{
-            lat: latitude,
-            lng: longitude,
+            lat: 50.5263596,
+            lng: 75.8577258,
           }}
-          defaultZoom={5}
+          defaultZoom={14}
           center={{ lat: latitude, lng: longitude }}
         >
 
           {/* {userloction.map((location) => {
-            // console.log(location)
-            return (
-              <LocationSearchingIcon
-                color="green"
-                lat={location.lat}
-                lng={location.lng}
-                />)
-          })} */}
+             // console.log(location)
+             return (
+               <LocationSearchingIcon
+                 color="green"
+                 lat={location.lat}
+                 lng={location.lng}
+                 />)
+           })} */}
 
           {initial.map((location) => {
             console.log(location)
@@ -251,23 +211,13 @@ console.log(initial)
           {/* <AnyReactComponent lat={59.955413} lng={30.337844} text="My Marker" /> */}
    
           <LocationSearchingIcon
-            color="blue" // Set a different color for the user's location
+            color="primary"
             lat={latitude}
             lng={longitude}
+            text="My Marker"
             fontSize="large"
           />
           
-          {userLocations.map((location) => (
-            <LocationSearchingIcon
-              key={location.id}
-              color="primary"
-              lat={location.latitude}
-              lng={location.longitude}
-              text={location.name}
-              fontSize="large"
-              onClick={() => pinpointLocation(location)}
-            />
-          ))}
         </GoogleMapReact>
       </div>
     );
@@ -282,3 +232,4 @@ console.log(initial)
 };
 
 export default Map;
+
