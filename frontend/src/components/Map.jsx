@@ -5,6 +5,8 @@ import Slider from "@mui/material/Slider";
 import Button from "@mui/material/Button";
 import GoogleMapReact from "google-map-react";
 import LocationSearchingIcon from "@mui/icons-material/LocationSearching";
+
+
 const Map = () => {
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
@@ -52,13 +54,14 @@ const Map = () => {
   const header = () => {
     return (
       <div className="bg-transparent" style={{ backgroundColor: "white" }}>
-        <Typography variant="h4" style={{ textAlign: "center" }}>
+        <Typography  style={{ textAlign: "center" }}>
           MATCHFINDER
         </Typography>
         <TextField
           label="Search for your match"
           variant="outlined"
-          style={{ width: "100%" }}
+          style={{ width: "95%",margin:"auto",display:"flex",height:"35px" }}
+          // className="mt-20"
         />
         <div
           style={{
@@ -68,19 +71,19 @@ const Map = () => {
             alignItems: "center",
           }}
         >
-          <Typography variant="h4" style={{ textAlign: "center" }}>
+          <Typography variant="h8" style={{ textAlign: "center" }}>
             Distance
           </Typography>
         </div>
 
-        <Slider />
+        <Slider style={{ width: "95%" ,margin:"auto",display:"flex",}} />
 
-        <div>
-          <Button variant="outlined" style={{ width: "50%" }}>
+        <div style={{margin:"auto",display:"flex", justifyContent:"space-evenly"}}>
+          <Button variant="outlined" style={{ width: "45%",marginBottom:"10px" }}>
             Reset
           </Button>
 
-          <Button variant="outlined" style={{ width: "50%" }}>
+          <Button variant="outlined" style={{ width: "45%",marginBottom:"10px" }}>
             Search
           </Button>
         </div>
@@ -102,7 +105,7 @@ const Map = () => {
 ];
   const map = () => {
     return (
-      <div style={{ backgroundColor: "cyan", height: "80vh" }}>
+      <div style={{ backgroundColor: "cyan",width:"80vw", height: "78vh"}}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "" }}
           defaultCenter={{
