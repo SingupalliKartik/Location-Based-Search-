@@ -20,6 +20,24 @@ const Dashboard  = ()=>{
             alert(error);
         }
     }
+
+
+// Get My Location
+const correct = (position)=>{
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    console.log("latitude "+latitude+"longitude "+longitude);
+}
+const getlocation = ()=>{
+	try {
+	const location =	navigator.geolocation.getCurrentPosition(correct);
+
+	} catch (error) {
+		alert(error);
+		console.log(error);
+	}
+}
+
     useEffect(()=>{
         getdata();
     },[])
@@ -29,16 +47,6 @@ const Dashboard  = ()=>{
 		<a class="text-lg sm:text-3xl text-white	  font-bold leading-none" href="#">
 			DASHBOARD
 		</a>
-		{/* <div class="lg:hidden">
-			<button onClick={()=>{
-             localStorage.removeItem("token");
-			 navigate("/");
-		}} class="navbar-burger flex items-center text-white p-3">
-		<svg class="w-6 h-6  text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a9 9 0 0 0 5-1.5 4 4 0 0 0-4-3.5h-2a4 4 0 0 0-4 3.5 9 9 0 0 0 5 1.5Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-  </svg><h1 className="hidden sm:block">Log Out</h1>
-			</button>
-		</div> */}
 		<ul class=" absolute space-x-2 items-center top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 flex lg:mx-auto lg:items-center lg:w-auto lg:space-x-6">
 			<li><Link to={"/"} class="text-sm text-white hover:text-gray-500 whitespace-nowrap" href="#">Home</Link></li>
 			<li class="text-gray-300 ">
@@ -53,9 +61,6 @@ const Dashboard  = ()=>{
 				</svg>
 			</li>
 			<li><Link to={"/"} class="text-sm text-white hover:text-gray-500 whitespace-nowrap" href="#">Home</Link></li>
-
-			{/* <li><Link to={"/postlist"} class="text-sm text-white font-bold whitespace-nowrap" href="#">Post</Link></li> */}
-
 		</ul>
 
 		{(iniName=="")?(<>
@@ -68,6 +73,9 @@ const Dashboard  = ()=>{
 			 navigate("/");
 		}} class="hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200" href="#">Log Out</button>
 	</nav>
+
+	{/* My Location */}
+	<button onClick={getlocation} className="p-3 px-6 border-2 border-black">My Location</button>
         </>
     )
 }
