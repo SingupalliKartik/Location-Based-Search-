@@ -21,16 +21,16 @@ router.get("/sport_data/:id",async(req,res)=>{
 router.post("/sportsDetailForm/:id",async(req,res)=>{
     try {
         const id = req.params.id;
-        const {CoreSkill,DOB,Bio,Email,skillLevel,firlocation} = req.body;
+        const {CoreSkill,DOB,Bio,Email,skillLevel,firlocation,image} = req.body;
         if(firlocation === undefined ){
             const result = await SportData.create({
-                CoreSkill,DOB,Bio,Email,skillLevel,selectedSports:req.body.selectedSports,longitude:"",latitude:""
+                CoreSkill,DOB,Bio,Email,skillLevel,selectedSports:req.body.selectedSports,image,longitude:"",latitude:""
                 })
         }
         else{
             const {longitude,latitude} = firlocation;
             const result = await SportData.create({
-                CoreSkill,DOB,Bio,Email,skillLevel,selectedSports:req.body.selectedSports,longitude,latitude
+                CoreSkill,DOB,Bio,Email,skillLevel,selectedSports:req.body.selectedSports,image,longitude,latitude
                 })
         }
      res.sendStatus(202);

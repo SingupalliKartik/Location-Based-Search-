@@ -1,11 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import logo from '../assets/logo.png'
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import {ref,getStorage ,getDownloadURL} from "firebase/storage";
+import axios from 'axios';
 
 const Sidebar = () => {
+  const {id}= useParams();
+  const navigate = useNavigate();
   const [isSubMenuVisible, setSubMenuVisible] = useState(true);
   const [isSidebarVisible, setSidebarVisible] = useState(true);
+  const [ini_url, fin_url] = useState();
+
+  const [iniName,finName] = useState("");
+
+  const getdata  = async()=>{
+      try {
+         const result = await axios.get(`http://localhost:1234/sport_data/${id}`) ;
+         const {Name,user_sport_data} = result.data; 
+         const storage = getStorage();
+         console.log(user_sport_data.image);
+         const imgref = ref(storage,`virtual_hackathone/${user_sport_data.image}`);
+         console.log(imgref)
+       try {
+      const url =  await getDownloadURL(imgref);
+      fin_url(url);
+       } catch (error) {
+        console.log(error)
+       }
+         finName(Name);   
+      } catch (error) {
+          console.log(error);
+          alert(error);
+      }
+  }
+
+
+
+
+  useEffect(()=>{
+      getdata();
+  },[])
 
   const toggleSubMenu = () => {
     setSubMenuVisible(!isSubMenuVisible);
@@ -14,8 +48,10 @@ const Sidebar = () => {
   const toggleSidebar = () => {
     setSidebarVisible(!isSidebarVisible);
   };
+
   const switchMode = () => {
-    document.body.classList.toggle('dark-mode');
+    localStorage.removeItem("token");
+    navigate("/");
   };
 
   return (
@@ -27,11 +63,11 @@ const Sidebar = () => {
         <div className="text-gray-100 text-xl">
           <div className="p-2.5 mt-1 flex items-center justify-center">
 
-            <img className='lg:w-[50px]' src="https://static.vecteezy.com/system/resources/previews/019/896/008/non_2x/male-user-avatar-icon-in-flat-design-style-person-signs-illustration-png.png" alt="" />            
+            <img className='lg:w-[70px] lg:h-[70px] rounded-full' src={ini_url} alt="" />            
            
             <i className="bi bi-x cursor-pointer ml-28 lg:hidden" onClick={toggleSidebar}></i>
           </div>
-          <p className='text-sm mt-2'>Welcome "User"</p>
+          <p className='text-sm mt-2'>Welcome "{iniName}"</p>
           <div className="my-2 bg-gray-600 h-[1px]"></div>
         </div>
        
