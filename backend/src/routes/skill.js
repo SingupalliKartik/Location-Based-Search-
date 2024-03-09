@@ -6,7 +6,6 @@ const SportData = require("../models/sportsInterest");
 router.get("/sport_data/:id",async(req,res)=>{
     try {
         const id = req.params.id;
-        console.log(id)
      const userdata = await Register.findOne({_id:id});
      const Email = userdata.Email;
      const Name = userdata.Name;
