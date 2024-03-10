@@ -22,6 +22,7 @@ import Users from "./Components/Users";
 import CreateGroups from "./Components/CreateGroups";
 import Groups from "./Components/Groups";
 import { useDispatch, useSelector } from "react-redux";
+import Ongoingevents from "./Ongoingevents";
 const Router = ()=>{
     const dispatch = useDispatch();
     const lightTheme = useSelector((state) => state.themeKey);
@@ -32,6 +33,7 @@ const Router = ()=>{
         <Route exact path="/signup" Component={SignUp }></Route> 
         <Route exact path="/map" Component={Map }></Route>
         <Route exact path="/login" Component={Login}></Route>
+        <Route exact path="/Ongoingevents" Component={Ongoingevents}></Route>
 
         
         
