@@ -27,6 +27,7 @@ app.use(
   })
 );
 
+
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "http://localhost:5173");
   res.header("Access-Control-Allow-Credentials", "true");
@@ -55,7 +56,9 @@ app.get("/", (req, res) => {
 });
 
 //Connect Data Base
-
+app.get("",(req,res)=>{
+  res.send("Hello...")
+})
 
 app.listen(port, () => {
   console.log("Connection successfully... ");
