@@ -38,7 +38,7 @@ function NewsComponent() {
         <>
         <div className='flex'>
             <Sidebar></Sidebar>
-            {/* <section class="my-12">
+            <section class="my-12">
             <h1 className='text-center text-3xl '>Top <span className='text-red-600'>Headlines</span> </h1>
   <div class="container px-5 py-6 mx-auto">
   
@@ -62,7 +62,7 @@ function NewsComponent() {
       
 
 
-</section> */}
+</section>
         </div>
         
         

@@ -8,9 +8,9 @@ import Profile from "./Profile";
 import News from "./News";
 import CommonDashboard from "./CommonDashboard";
 import Map from "./Map";
-
+import UserData from "./UserData";
 import FindPlayer from "./FIndplayer";
-
+import HireTrainee from "./HireTrainee";
 
 
 import MainContainer from "./Components/MainContainer";
@@ -35,13 +35,13 @@ const Router = ()=>{
         <Route exact path="/login" Component={Login}></Route>
         <Route exact path="/Ongoingevents" Component={Ongoingevents}></Route>
 
-        <Route path="/app" element={<MainContainer />}></Route>
+        {/* <Route path="/app" element={<MainContainer />}></Route>
           <Route path="/welcome" element={<Welcome />}></Route>
           <Route path="/chat/:id" element={<ChatArea />}></Route>
           <Route path="/users" element={<Users />}></Route>
           <Route path="/groups" element={<Groups />}></Route>
           <Route path="/create-groups" element={<CreateGroups />}></Route>
-       
+        */}
         <Route exact path="/dashboard/:id" Component={Dashboard}></Route>
         <Route exact path="/common_dashboard/:id" Component={CommonDashboard}></Route>
         {/* <Route exact path="/sport_detail_form/:id" Component={SportDetailForm}></Route> */}
@@ -55,6 +55,9 @@ const Router = ()=>{
           <Route path="create-groups" element={<CreateGroups />}></Route>
         </Route>
         
+        <Route exact path="/headlines" Component={News}></Route>
+        <Route exact path="/my-profile" Component={UserData}></Route>
+        <Route exact path="/find-trainer" Component={HireTrainee}></Route>
         </Routes>
         </>
     )

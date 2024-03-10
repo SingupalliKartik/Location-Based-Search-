@@ -8,6 +8,7 @@ import Sidebar from './components/sidebar'
 import News from './components/News'
 import FIndplayer from './components/FIndplayer'
 import UserData from './components/UserData'
+import HireTrainee from './components/HireTrainee'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -15,7 +16,8 @@ function App() {
   return (
     <>
     <Router/>
-    {/* <UserData></UserData> */}
+    <UserData></UserData>
+    {/* <HireTrainee></HireTrainee> */}
  </>
   )
 }
