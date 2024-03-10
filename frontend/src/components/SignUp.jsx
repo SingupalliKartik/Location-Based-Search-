@@ -1,6 +1,8 @@
 import { React, useEffect, useState } from "react";
 import { useNavigate, Link, NavLink } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignUp = () => {
     const navigate = useNavigate();
@@ -25,17 +27,18 @@ const SignUp = () => {
         event.preventDefault();
         try {
             const { FName, LName, Email, Password, Number } = initial;
-            const response = await axios.post("https://hackathone-backend-two.vercel.app/signup", {
+            const response = await axios.post("http://localhost:1234/signup", {
                 FName, LName, Email, Password, Number
             })
             localStorage.setItem("userData", JSON.stringify(response));
             const { Token, id } = response.data;
             localStorage.setItem('token', Token);
             axios.defaults.headers.common["Authorization"] = Token;
-            alert("Successfully Save ...")
+            toast("Successfully Save ...")
+            // alert("Successfully Save ...")
             navigate(`/dashboard/${id}`);
         } catch (error) {
-            alert(error);
+            toast(error)
             console.log(error);
         }
     }
@@ -43,16 +46,15 @@ const SignUp = () => {
 
         try {
             axios.defaults.headers.common["Authorization"] = token;
-            const response = await axios.get("https://hackathone-backend-two.vercel.app/homepage");
+            // const response = await axios.get("https://hackathone-backend-two.vercel.app/homepage");
+            const response = await axios.get("http://localhost:1234/homepage");
             const id = response.data.id;
             navigate(`/dashboard/${id}`)
         } catch (error) {
-            alert(error)
+            toast(error)
             console.log(error);
         }
     }
-
-    console.log(token)
     useEffect(() => {
         if (token != null) {
             console.log("hello")
@@ -180,6 +182,7 @@ const SignUp = () => {
                 </div>
 
             </div>
+            <ToastContainer/>
         </>
     )
 }
