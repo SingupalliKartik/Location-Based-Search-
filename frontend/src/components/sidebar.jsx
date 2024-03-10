@@ -70,7 +70,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="  fixed custom:static block ">
+    <div className="  fixed z-10 top-0 left-0 custom:static block ">
      
       <span
         className=" text-white text-4xl top-5 left-4 cursor-pointer"
