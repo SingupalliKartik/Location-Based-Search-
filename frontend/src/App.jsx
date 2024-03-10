@@ -16,12 +16,8 @@ function App() {
   return (
     <>
     <Router/>
-<<<<<<< HEAD
     {/* <UserData></UserData> */}
     {/* <HireTrainee></HireTrainee> */}
-=======
-
->>>>>>> a1c876742fe577941b6a23b8c9fe5ca4c2c8c3a3
  </>
   )
 4

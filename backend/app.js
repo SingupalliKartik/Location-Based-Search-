@@ -49,8 +49,8 @@ app.use("/message", messageRoutes);
 app.use("/user", userRoutes);
 
 // Error Handling middlewares
-app.use(notFound);
-app.use(errorHandler);
+// app.use(notFound);
+// app.use(errorHandler);
 app.get("/", (req, res) => {
   res.send("Hello how are you");
 });
