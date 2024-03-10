@@ -27,7 +27,7 @@ const SignUp = () => {
         event.preventDefault();
         try {
             const { FName, LName, Email, Password, Number } = initial;
-            const response = await axios.post("http://localhost:1234/signup", {
+            const response = await axios.post("https://hackathone-backend-two.vercel.app/signup", {
                 FName, LName, Email, Password, Number
             })
             localStorage.setItem("userData", JSON.stringify(response));
@@ -46,8 +46,7 @@ const SignUp = () => {
 
         try {
             axios.defaults.headers.common["Authorization"] = token;
-            // const response = await axios.get("https://hackathone-backend-two.vercel.app/homepage");
-            const response = await axios.get("http://localhost:1234/homepage");
+            const response = await axios.get("https://hackathone-backend-two.vercel.app/homepage");
             const id = response.data.id;
             navigate(`/dashboard/${id}`)
         } catch (error) {
@@ -182,7 +181,7 @@ const SignUp = () => {
                 </div>
 
             </div>
-            <ToastContainer/>
+            <ToastContainer />
         </>
     )
 }
