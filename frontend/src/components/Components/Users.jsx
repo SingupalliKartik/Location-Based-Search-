@@ -31,10 +31,10 @@ function Users() {
     console.log("Users refreshed");
     const config = {
       headers: {
-        Authorization: `Bearer ${userData.data.token}`,
+        Authorization: `Bearer ${userData.data.Token}`,
       },
     };
-    axios.get("http://localhost:8080/user/fetchUsers", config).then((data) => {
+    axios.get("http://localhost:1234/user/fetchUsers", config).then((data) => {
       console.log("UData refreshed in Users panel ");
       setUsers(data.data);
       // setRefresh(!refresh);
@@ -87,14 +87,14 @@ function Users() {
                 className={"list-tem" + (lightTheme ? "" : " dark")}
                 key={index}
                 onClick={() => {
-                  console.log("Creating chat with ", user.name);
+                  console.log("Creating chat with ", user.FName);
                   const config = {
                     headers: {
-                      Authorization: `Bearer ${userData.data.token}`,
+                      Authorization: `Bearer ${userData.data.Token}`,
                     },
                   };
                   axios.post(
-                    "http://localhost:8080/chat/",
+                    "http://localhost:1234/chat/",
                     {
                       userId: user._id,
                     },
@@ -105,7 +105,7 @@ function Users() {
               >
                 <p className={"con-icon" + (lightTheme ? "" : " dark")}>T</p>
                 <p className={"con-title" + (lightTheme ? "" : " dark")}>
-                  {user.name}
+                  {user.FName}
                 </p>
               </motion.div>
             );

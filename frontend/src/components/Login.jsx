@@ -36,6 +36,7 @@ const Login = ()=>{
      console.log(result);
      const status = result.status;
      if(status == 202){
+      localStorage.setItem("userData", JSON.stringify(result));
      const token = result.data.Token;
      const id = result.data.id;
      localStorage.setItem('token', token);

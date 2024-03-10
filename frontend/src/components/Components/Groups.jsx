@@ -28,15 +28,15 @@ function Groups() {
 
   const user = userData.data;
   useEffect(() => {
-    console.log("Users refreshed : ", user.token);
+    console.log("Users refreshed : ", user.Token);
     const config = {
       headers: {
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${user.Token}`,
       },
     };
 
     axios
-      .get("http://localhost:8080/chat/fetchGroups", config)
+      .get("http://localhost:1234/chat/fetchGroups", config)
       .then((response) => {
         console.log("Group Data from API ", response.data);
         SetGroups(response.data);

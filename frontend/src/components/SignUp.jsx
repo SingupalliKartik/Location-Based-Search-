@@ -28,6 +28,7 @@ const SignUp = ()=>{
           const response = await axios.post("http://localhost:1234/signup",{
               FName,LName,Email,Password,Number
           })
+          localStorage.setItem("userData", JSON.stringify(response));
            const {Token,id} = response.data;
            localStorage.setItem('token', Token);
            axios.defaults.headers.common["Authorization"] = Token;

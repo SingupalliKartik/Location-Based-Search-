@@ -13,8 +13,15 @@ router.post("/signup",async(req,res)=>{
        })
        const id = response._id;
        console.log(id)
-       const Token = jwt.sign({_id:id},process.env.Sectet_Key1);
-       res.status(202).json({Token,id});
+       const Token = jwt.sign({_id:id},"abcdrghsfdsgf326468jklsad$5%^jhfgsdjf12xz");
+       //res.status(202).json({Token,id});
+       res.status(202).json( {
+        id: id,
+        name: response.FName,
+        email: response.Email,
+        isAdmin: response.isAdmin,
+        Token: Token,
+      });
     } catch (error) {
         console.log(error);
        res.status(404).send(error);
@@ -33,8 +40,16 @@ router.post("/login",async(req,res)=>{
             const Name = result.FName;
           const check = await bcrypt.compare(Password,UserPassword);
           if(check === true){
-            const Token = jwt.sign({_id:id},process.env.Sectet_Key1);
-            res.status(202).json({Token,Name,id})
+            const Token = jwt.sign({_id:id},"abcdrghsfdsgf326468jklsad$5%^jhfgsdjf12xz");
+            //res.status(202).json({Token,Name,id})
+
+            res.status(202). json( {
+              id: id,
+              name: Name,
+              email: result.Email,
+              isAdmin: result.isAdmin,
+              Token: Token,
+            });
           }
           else{
             res.status(404).send("Invalid Password...")
@@ -60,4 +75,7 @@ router.get("/user_auth_data/:id",async(req,res)=>{
     res.sendStatus(404);
 }
 })
+
+
+
 module.exports = router;
