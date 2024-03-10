@@ -3,7 +3,7 @@ import "./myStyles.css";
 import Sidebar from "./Sidebar";
 import { Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
+import Sideee from '../sidebar'
 export const myContext = createContext();
 function MainContainer() {
   const dispatch = useDispatch();
@@ -11,6 +11,8 @@ function MainContainer() {
   const [refresh, setRefresh] = useState(true);
 
   return (
+    <div className="flex">
+      <Sideee/>
     <div className={"main-container" + (lightTheme ? "" : " dark")}>
       <myContext.Provider value={{ refresh: refresh, setRefresh: setRefresh }}>
         <Sidebar />
@@ -21,6 +23,7 @@ function MainContainer() {
       {/* <ChatArea props={conversations[0]} /> */}
       {/* <Users /> */}
       {/* <Groups /> */}
+    </div>
     </div>
   );
 }
