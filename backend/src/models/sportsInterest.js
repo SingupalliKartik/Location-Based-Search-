@@ -28,6 +28,10 @@ const Sport = new mongoose.Schema({
         type:String,
         required:true,
     },
+    FName:{
+        type:String,
+        required:true,
+    },
     selectedSports:[{
         type:String,
         required:true,

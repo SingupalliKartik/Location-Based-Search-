@@ -9,6 +9,10 @@ import News from "./News";
 import CommonDashboard from "./CommonDashboard";
 import Map from "./Map";
 
+import FindPlayer from "./FIndplayer";
+
+
+
 import MainContainer from "./Components/MainContainer";
 
 
@@ -24,9 +28,11 @@ const Router = ()=>{
     return(
         <>
         <Routes>
-        <Route exact path="/" Component={SignUp }></Route> 
+        <Route exact path="/" Component={FindPlayer}></Route> 
+        {/* <Route exact path="/" Component={SignUp }></Route>  */}
         <Route exact path="/map" Component={Map }></Route>
         <Route exact path="/login" Component={Login}></Route>
+
         
         <Route path="app" element={<MainContainer />}>
           <Route path="welcome" element={<Welcome />}></Route>

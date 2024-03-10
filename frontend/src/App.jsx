@@ -14,11 +14,8 @@ function App() {
 
   return (
     <>
-    {/* <Router/> */}
-    {/* <Profile></Profile> */}
-    {/* <Sidebar></Sidebar> */}
-    {/* <FIndplayer></FIndplayer> */}
-    <UserData></UserData>
+    <Router/>
+    {/* <UserData></UserData> */}
  </>
   )
 }

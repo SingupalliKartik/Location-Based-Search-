@@ -49,11 +49,12 @@ const Profile = () => {
            const imgref = ref(storage,`virtual_hackathone/${image}`);
         const {CoreSkill,DOB,Bio} = initial;
         const Email = ini_authSave.Email;
+        const FName = ini_authSave.FName;
         console.log(firlocation);
          if(firlocation === "error" || firlocation === ""){
              console.log("Hello How are you")
              const response = await axios.post(`http://localhost:1234/sportsDetailForm/${id}`,{
-                CoreSkill,DOB,Bio,Email,skillLevel,selectedSports,image
+                CoreSkill,DOB,Bio,Email,skillLevel,selectedSports,image,FName
                })
                 alert("Successfully Save ...")
                 if(response.status = 202){

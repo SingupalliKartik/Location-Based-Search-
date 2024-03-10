@@ -25,7 +25,7 @@ const FindPlayer = () => {
       <div className="flex">
         <Sidebar />
         <section className="text-gray-200 body-font">
-          <div className="flex w-full justify-center items-center pt-10">
+          {/* <div className="flex w-full justify-center items-center pt-10">
             <div className="flex w-full justify-center lg:gap-x-20 items-center">
               <input
                 className="outline-none lg:w-[800px] focus:ring focus:ring-gray-800 rounded bg-[#131313] border-b border-b-gray-700 px-8 py-2"
@@ -63,7 +63,7 @@ const FindPlayer = () => {
                 />
               </button>
             </div>
-          </div>
+          </div> */}
 
           <div className="container px-5 py-14 mx-auto">
             <div className="flex flex-wrap -m-4">
