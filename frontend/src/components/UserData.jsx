@@ -17,7 +17,7 @@ const ProfileCard = () => {
     const [ini_url, fin_url] = useState();
     const getdata  = async()=>{
         try {
-           const result = await axios.get(`https://virtualhackathon.vercel.app/sport_user_data/${id}`) ;
+           const result = await axios.get(`https://hackathone-backend-two.vercel.app/sport_user_data/${id}`) ;
            const {Number,user_sport_data} = result.data;
     
            console.log(user_sport_data)
