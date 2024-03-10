@@ -181,6 +181,7 @@ console.log(firlocation);
                 <label class=" dark:text-gray-200" for="passwordConfirmation">Core Skill</label>
                 <select onChange={setdata} name="CoreSkill" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-transparent border border-gray-300 rounded-md bg-transparent dark:text-gray-300 dark:border-gray-600  dark:focus:border-red-600 ">
                 <option className='bg-[#111111] ' value="Cricket">Cricket</option>
+                                            <option className='bg-[#353434]' value="Football">Select Core Skill</option>
                                             <option className='bg-[#111111]' value="Football">Football</option>
                                             <option className='bg-[#111111]' value="Badminton">Badminton</option>
                                             <option className='bg-[#111111]' value="Chess">Chess</option>
