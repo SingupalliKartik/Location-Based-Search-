@@ -9,7 +9,7 @@ const CommonDashboard  = ()=>{
   
       const getdata  = async()=>{
           try {
-             const result = await axios.get(`http://localhost:1234/sport_data/${id}`) ;
+             const result = await axios.get(`https://hackathone-backend-two.vercel.app/sport_data/${id}`) ;
              console.log(result)
              const {Name,sport_data,user_sport_data} = result.data;
              if(user_sport_data===null || user_sport_data===undefined){

@@ -54,7 +54,7 @@ const Profile = () => {
         console.log(FName);
          if(firlocation === "error" || firlocation === ""){
              console.log("Hello How are you")
-             const response = await axios.post(`http://localhost:1234/sportsDetailForm/${id}`,{
+             const response = await axios.post(`https://hackathone-backend-two.vercel.app/sportsDetailForm/${id}`,{
                 CoreSkill,DOB,Bio,Email,skillLevel,selectedSports,image,FName
                })
                 alert("Successfully Save ...")
@@ -64,7 +64,7 @@ const Profile = () => {
                 }
      }
          else{
-            const response = await axios.post(`http://localhost:1234/sportsDetailForm/${id}`,{
+            const response = await axios.post(`https://hackathone-backend-two.vercel.app/sportsDetailForm/${id}`,{
                 CoreSkill,DOB,Bio,Email,skillLevel,selectedSports,firlocation,image,FName
                })
                 alert("Successfully Save ...")
@@ -81,7 +81,7 @@ const Profile = () => {
     
     const getuserprofile = async()=>{
       try {
-          let userdata = await axios.get(`http://localhost:1234/user_auth_data/${id}`);
+          let userdata = await axios.get(`https://hackathone-backend-two.vercel.app/user_auth_data/${id}`);
           userdata = userdata.data.userdata;
          fin_auth((info)=>{
           info.FName = userdata.FName;

@@ -16,7 +16,7 @@ const Sidebar = () => {
 
   const getdata = async () => {
     try {
-      const result = await axios.get(`http://localhost:1234/sport_data/${id}`);
+      const result = await axios.get(`https://hackathone-backend-two.vercel.app/sport_data/${id}`);
       const { Name, user_sport_data } = result.data;
       const storage = getStorage();
       console.log(user_sport_data.image);
@@ -37,7 +37,6 @@ const Sidebar = () => {
       if(error.message === "Request failed with status code 401" || error.status === 401){
         navigate("/");
       }
-      navigate("/");
     }
   };
   const token = localStorage.getItem("token");
