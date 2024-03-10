@@ -34,11 +34,11 @@ const SignUp = () => {
             const { Token, id } = response.data;
             localStorage.setItem('token', Token);
             axios.defaults.headers.common["Authorization"] = Token;
-            toast("Successfully Save ...")
-            // alert("Successfully Save ...")
+            // toast("Successfully Save ...")
+            alert("Successfully Save ...")
             navigate(`/dashboard/${id}`);
         } catch (error) {
-            toast(error)
+            alert(error)
             console.log(error);
         }
     }
@@ -51,6 +51,7 @@ const SignUp = () => {
             navigate(`/dashboard/${id}`)
         } catch (error) {
             toast(error)
+            alert(error)
             console.log(error);
         }
     }
