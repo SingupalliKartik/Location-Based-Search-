@@ -18,13 +18,18 @@ CoreSkill:"",
 latitude:"",
 longitude:"",
 skillLevel:"",
-selectedSports:""
+selectedSports:"",
+FName:""
   }])
+  const [ini_user,fin_user] = useState();
+  const [ini_search,fin_search] = useState("");
     const navigate = useNavigate();
     const getdata  = async()=>{
         try {
            const result = await axios.get(`http://localhost:1234/sport_data/${id}`) ;
            const sport_data = result.data.sport_data;
+           const user_sport_data = result.data.user_sport_data;
+           fin_user(user_sport_data);
            sport_data.map((info)=>{
             final((data)=>[
               ...data,{
@@ -33,7 +38,8 @@ selectedSports:""
                 latitude:info.latitude,
                 longitude:info.longitude,
                 skillLevel:info.skillLevel,
-                selectedSports:info.selectedSports
+                selectedSports:info.selectedSports,
+                FName:info.FName,
               }
             ])
            })
@@ -128,40 +134,81 @@ const pinpointLocation = (location) => {
 
   const header = () => {
     return (
-      <div className="bg-transparent" style={{ backgroundColor: "white" }}>
-        <Typography  style={{ textAlign: "center" }}>
-          MATCHFINDER
-        </Typography>
-        <TextField
-          label="Search for your match"
-          variant="outlined"
-          style={{ width: "95%",margin:"auto",display:"flex",height:"35px" }}
-        />
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <Typography variant="h8" style={{ textAlign: "center" }}>
-            Distance
-          </Typography>
-        </div>
+      // <div className="bg-transparent" style={{ backgroundColor: "white" }}>
+      //   <Typography  style={{ textAlign: "center" }}>
+      //     MATCHFINDER
+      //   </Typography>
+      //   <TextField
+      //     label="Search for your match"
+      //     variant="outlined"
+      //     style={{ width: "95%",margin:"auto",display:"flex",height:"35px" }}
+      //   />
+      //   <div
+      //     style={{
+      //       display: "flex",
+      //       flexDirection: "row",
+      //       justifyContent: "space-between",
+      //       alignItems: "center",
+      //     }}
+      //   >
+      //     <Typography variant="h8" style={{ textAlign: "center" }}>
+      //       Distance
+      //     </Typography>
+      //   </div>
 
-        <Slider style={{ width: "95%" ,margin:"auto",display:"flex",}} />
+      //   <Slider style={{ width: "95%" ,margin:"auto",display:"flex",}} />
 
-        <div style={{margin:"auto",display:"flex", justifyContent:"space-evenly"}}>
-          <Button variant="outlined" style={{ width: "45%",marginBottom:"10px" }}>
-            Reset
-          </Button>
+      //   <div style={{margin:"auto",display:"flex", justifyContent:"space-evenly"}}>
+      //     <Button variant="outlined" style={{ width: "45%",marginBottom:"10px" }}>
+      //       Reset
+      //     </Button>
 
-          <Button variant="outlined" style={{ width: "45%",marginBottom:"10px" }}>
-            Search
-          </Button>
-        </div>
-      </div>
+      //     <Button variant="outlined" style={{ width: "45%",marginBottom:"10px" }}>
+      //       Search
+      //     </Button>
+      //   </div>
+      // </div>
+      <div className="flex w-full mb-10 justify-center items-center pt-10">
+            <div className="flex w-full justify-center lg:gap-x-20 items-center">
+              <input
+                className="outline-none lg:w-[800px] border-2 border-white focus:ring focus:ring-gray-800 rounded bg-[#131313] border-b-white px-8 py-2"
+                placeholder="Search ..."
+                type="text"
+                value={ini_search}
+              />
+              <div>
+                <select
+                  onChange={(e)=>{fin_search(e.target.value)}}
+                  name="CoreSkill"
+                  class="block w-full px-4 py-2  text-gray-700 border border-white rounded-md bg-transparent dark:text-gray-300  dark:focus:border-red-600 "
+                >
+                  <option className="bg-[#111111] " value="">
+                    Search By
+                  </option>
+                  <option className="bg-[#111111]" value="byname">
+                    Name
+                  </option>
+                  <option className="bg-[#111111]" value="bylocation">
+                    Location
+                  </option>
+                  <option className="bg-[#111111]" value="byage">
+                    Age
+                  </option>
+                  <option className="bg-[#111111]" value="bycoreskill">
+                    Core Skill
+                  </option>
+                </select>
+              </div>
+              <button>
+                {" "}
+                <img
+                  className="h-8  border border-opacity-40 border-gray-700 w-8 mix-blend-lighten"
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThpUvJgqd5Y2uFxMB3gjQpMvQHh2nrkux1CwVKv8V9rA&s"
+                  alt=""
+                />
+              </button>
+            </div>
+          </div> 
     );
   };
   let userloction = [
@@ -177,52 +224,167 @@ const pinpointLocation = (location) => {
     { "id": "10", "name": "Location 10", "lat": "23.264987", "lng": "77.397469" }
 ];
   const map = () => {
-    return (
-      <div style={{ backgroundColor: "cyan",width:"80vw", height: "78vh"}}>
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: "" }}
-          defaultCenter={{
-            lat: 50.5263596,
-            lng: 75.8577258,
-          }}
-          defaultZoom={14}
-          center={{ lat: latitude, lng: longitude }}
-        >
-
-          {/* {userloction.map((location) => {
-             // console.log(location)
-             return (
-               <LocationSearchingIcon
-                 color="green"
-                 lat={location.lat}
-                 lng={location.lng}
-                 />)
-           })} */}
-
-          {initial.map((location) => {
-            console.log(location)
-            return (
-              <LocationOnIcon
-                color="secondary"
-                lat={location.latitude}
-                lng={location.longitude}
-                />)
-          })}
-          {/* <AnyReactComponent lat={59.955413} lng={30.337844} text="My Marker" /> */}
-   
-          <LocationSearchingIcon
-            color="primary"
-            lat={latitude}
-            lng={longitude}
-            text="My Marker"
-            fontSize="large"
-          />
-          
-        </GoogleMapReact>
-      </div>
-    );
+    if(ini_search==""){
+      return (
+        <div style={{ backgroundColor: "cyan",width:"80vw", height: "83vh"}}>
+          <GoogleMapReact
+            bootstrapURLKeys={{ key: "" }}
+            // defaultCenter={{
+            //   lat: 23.237541,
+            //   lng: 77.405549,
+            // }}
+            defaultZoom={14}
+            center={{ lat: latitude, lng: longitude }}
+          >
+            {initial.map((location) => {
+              // console.log(location)
+              return (
+                <LocationOnIcon
+                  color="secondary"
+                  lat={location.latitude}
+                  lng={location.longitude}
+                  />)
+            })}
+            {/* <AnyReactComponent lat={59.955413} lng={30.337844} text="My Marker" /> */}
+     
+            <LocationSearchingIcon
+              color="primary"
+              lat={latitude}
+              lng={longitude}
+              text="My Marker"
+              fontSize="large"
+            />
+            
+          </GoogleMapReact>
+        </div>
+      );
+    }
+    else if(ini_search==="bycoreskill"){
+      return (
+        <div style={{ backgroundColor: "cyan",width:"80vw", height: "83vh"}}>
+          <GoogleMapReact
+            bootstrapURLKeys={{ key: "" }}
+            // defaultCenter={{
+            //   lat: 23.237541,
+            //   lng: 77.405549,
+            // }}
+            defaultZoom={14}
+            center={{ lat: latitude, lng: longitude }}
+          >
+     {  initial.map((info)=>{
+      if(ini_user.CoreSkill===info.CoreSkill){
+        return (
+          <LocationOnIcon
+            color="secondary"
+            lat={info.latitude}
+            lng={info.longitude}
+            />)
+      }
+      else{
+        return(
+          <>
+          </>
+        )
+      }
+     })}
+            {/* {initial.map((location) => {
+              // console.log(location)
+            
+            })} */}
+            {/* <AnyReactComponent lat={59.955413} lng={30.337844} text="My Marker" /> */}
+     
+            <LocationSearchingIcon
+              color="primary"
+              lat={latitude}
+              lng={longitude}
+              text="My Marker"
+              fontSize="large"
+            />
+            
+          </GoogleMapReact>
+        </div>
+      );
+    }
+    else if(ini_search==="byname"){
+      return (
+        <div style={{ backgroundColor: "cyan",width:"80vw", height: "83vh"}}>
+          <GoogleMapReact
+            bootstrapURLKeys={{ key: "" }}
+            defaultZoom={14}
+            center={{ lat: latitude, lng: longitude }}
+          >
+     {  initial.map((info)=>{
+      if(ini_user.FName===info.FName){
+        return (
+          <LocationOnIcon
+            color="secondary"
+            lat={info.latitude}
+            lng={info.longitude}
+            />)
+      }
+      else{
+        return(
+          <>
+          </>
+        )
+      }
+     })}
+            {/* {initial.map((location) => {
+              // console.log(location)
+            
+            })} */}
+            {/* <AnyReactComponent lat={59.955413} lng={30.337844} text="My Marker" /> */}
+     
+            <LocationSearchingIcon
+              color="primary"
+              lat={latitude}
+              lng={longitude}
+              text="My Marker"
+              fontSize="large"
+            />
+            
+          </GoogleMapReact>
+        </div>
+      );
+    }
+    else{
+      return (
+        <div style={{ backgroundColor: "cyan",width:"80vw", height: "83vh"}}>
+          <GoogleMapReact
+            bootstrapURLKeys={{ key: "" }}
+            // defaultCenter={{
+            //   lat: 23.237541,
+            //   lng: 77.405549,
+            // }}
+            defaultZoom={14}
+            center={{ lat: latitude, lng: longitude }}
+          >
+            {initial.map((location) => {
+              // console.log(location)
+              return (
+                <LocationOnIcon
+                  color="secondary"
+                  lat={location.latitude}
+                  lng={location.longitude}
+                  />)
+            })}
+            {/* <AnyReactComponent lat={59.955413} lng={30.337844} text="My Marker" /> */}
+     
+            <LocationSearchingIcon
+              color="primary"
+              lat={latitude}
+              lng={longitude}
+              text="My Marker"
+              fontSize="large"
+            />
+            
+          </GoogleMapReact>
+        </div>
+      );
+    }
   };
-
+  console.log("Serch")
+console.log(ini_search);
   return (
     <div>
       {header()}
