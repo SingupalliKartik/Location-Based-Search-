@@ -18,7 +18,21 @@ function Users() {
   const lightTheme = useSelector((state) => state.themeKey);
   const [users, setUsers] = useState([]);
   const userData = JSON.parse(localStorage.getItem("userData"));
+  const [ini_search, fin_search] = useState("");
+  const [ini_user, fin_user] = useState();
+
   // console.log("Data from LocalStorage : ", userData);
+  const [initial, final] = useState([
+    {
+      id: "",
+      CoreSkill: "",
+      latitude: "",
+      longitude: "",
+      skillLevel: "",
+      selectedSports: "",
+      FName: "",
+    },
+  ]);
   const nav = useNavigate();
   const dispatch = useDispatch();
 
@@ -26,7 +40,39 @@ function Users() {
     console.log("User not Authenticated");
     nav(-1);
   }
-
+  const setsearch = (e) => {
+    fin_search(e.target.value);
+  };
+  const getdata = async () => {
+    try {
+      const result = await axios.get(
+        `http://localhost:1234/sport_data/${userData.data.id}`
+      );
+      const sport_data = result.data.sport_data;
+      const user_sport_data = result.data.user_sport_data;
+      fin_user(user_sport_data);
+      sport_data.map((info) => {
+        final((data) => [
+          ...data,
+          {
+            id: info._id,
+            CoreSkill: info.CoreSkill,
+            latitude: info.latitude,
+            longitude: info.longitude,
+            skillLevel: info.skillLevel,
+            selectedSports: info.selectedSports,
+            FName: info.FName,
+          },
+        ]);
+      });
+    } catch (error) {
+      console.log(error);
+      alert(error);
+    }
+  };
+  useEffect(() => {
+    getdata();
+  }, []);
   useEffect(() => {
     console.log("Users refreshed");
     const config = {
@@ -77,6 +123,27 @@ function Users() {
             placeholder="Search"
             className={"search-box" + (lightTheme ? "" : " dark")}
           />
+           <select
+          onChange={setsearch}
+          name="CoreSkill"
+          class="block w-full px-4 py-2  text-gray-700 border border-white rounded-md bg-transparent dark:text-gray-300  dark:focus:border-red-600 "
+        >
+          <option className="bg-[#111111] " value="">
+            Search By
+          </option>
+          <option className="bg-[#111111]" value="Name">
+            Name
+          </option>
+          {/* <option className="bg-[#111111]" value="Location">
+                    Location
+                  </option> */}
+          <option className="bg-[#111111]" value="age">
+            Age
+          </option>
+          <option className="bg-[#111111]" value="bycoreskill">
+            Core Skill
+          </option>
+        </select>
         </div>
         <div className="ug-list">
           {users.map((user, index) => {

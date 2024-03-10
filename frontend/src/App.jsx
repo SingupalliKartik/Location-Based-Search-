@@ -15,19 +15,11 @@ function App() {
 
   return (
     <>
-<<<<<<< HEAD
-    <Router/>
-    {/* <UserData></UserData> */}
-    {/* <HireTrainee></HireTrainee> */}
- </>
-  )
-=======
       <Router />
-      <UserData></UserData>
+      {/* <UserData></UserData> */}
       {/* <HireTrainee></HireTrainee> */}
     </>
   );
->>>>>>> 9ce906b7cc044a15c8b4757ce3fdaeded78c3d7f
 }
 
 export default App;

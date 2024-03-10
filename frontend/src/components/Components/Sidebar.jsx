@@ -21,8 +21,10 @@ function Sidebar() {
   const lightTheme = useSelector((state) => state.themeKey);
   // const refresh = useSelector((state) => state.refreshKey);
   const { refresh, setRefresh } = useContext(myContext);
+  // const [ini_user, fin_user] = useState();
   // console.log("Context API : refresh : ", refresh);
   const [conversations, setConversations] = useState([]);
+  // const [ini_search, fin_search] = useState("");
   // console.log("Conversations of Sidebar : ", conversations);
   const userData = JSON.parse(localStorage.getItem("userData"));
   // console.log("Data from LocalStorage : ", userData);
@@ -52,7 +54,7 @@ function Sidebar() {
     <div className="sidebar-container">
       <div className={"sb-header" + (lightTheme ? "" : " dark")}>
         <div className="other-icons">
-          <IconButton
+          {/* <IconButton
             onClick={() => {
               nav("/app/welcome");
             }}
@@ -60,7 +62,7 @@ function Sidebar() {
             <AccountCircleIcon
               className={"icon" + (lightTheme ? "" : " dark")}
             />
-          </IconButton>
+          </IconButton> */}
 
           <IconButton
             onClick={() => {
@@ -69,13 +71,13 @@ function Sidebar() {
           >
             <PersonAddIcon className={"icon" + (lightTheme ? "" : " dark")} />
           </IconButton>
-          <IconButton
+          {/* <IconButton
             onClick={() => {
               navigate("groups");
             }}
           >
             <GroupAddIcon className={"icon" + (lightTheme ? "" : " dark")} />
-          </IconButton>
+          </IconButton> */}
           <IconButton
             onClick={() => {
               navigate("create-groups");
@@ -98,14 +100,14 @@ function Sidebar() {
               <LightModeIcon className={"icon" + (lightTheme ? "" : " dark")} />
             )}
           </IconButton>
-          <IconButton
+          {/* <IconButton
             onClick={() => {
               localStorage.removeItem("userData");
               navigate("/");
             }}
           >
             <ExitToAppIcon className={"icon" + (lightTheme ? "" : " dark")} />
-          </IconButton>
+          </IconButton> */}
         </div>
       </div>
       <div className={"sb-search" + (lightTheme ? "" : " dark")}>
@@ -147,17 +149,17 @@ function Sidebar() {
                   }}
                   // dispatch change to refresh so as to update chatArea
                 >
-               
-                {/* {conversation.users[1].name[0]!==undefined && conversation.users[1].name !== undefined?
-                 <>
-                  <p className={"con-icon" + (lightTheme ? "" : " dark")}>
-                    {conversation.users[1].name[0]}
-                  </p>
-                  <p className={"con-title" + (lightTheme ? "" : " dark")}>
-                    {conversation.users[1].name}
-                  </p>
-                 </>: null
-} */}
+                  {conversation.users[1].FName[0] !== undefined &&
+                  conversation.users[1].FName !== undefined ? (
+                    <>
+                      <p className={"con-icon" + (lightTheme ? "" : " dark")}>
+                        {conversation.users[1].FName[0]}
+                      </p>
+                      <p className={"con-title" + (lightTheme ? "" : " dark")}>
+                        {conversation.users[1].FName}
+                      </p>
+                    </>
+                  ) : null}
                   <p className="con-lastMessage">
                     No previous Messages, click here to start a new chat
                   </p>
