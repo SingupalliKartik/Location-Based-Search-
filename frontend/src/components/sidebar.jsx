@@ -97,7 +97,7 @@ const Sidebar = () => {
           <div className="my-2 bg-gray-600 h-[1px]"></div>
         </div>
 
-        <Link>
+        <Link to={`/dashboard/${id}`}>
           <div className="p-2.5 mt-1 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-red-800 text-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
