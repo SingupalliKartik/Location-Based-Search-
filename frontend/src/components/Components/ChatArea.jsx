@@ -24,16 +24,16 @@ function ChatArea() {
   const { refresh, setRefresh } = useContext(myContext);
   const [loaded, setloaded] = useState(false);
   const sendMessage = () => {
-    setMessageContent("")
+    setMessageContent("");
     // console.log("SendMessage Fired to", chat_id._id);
     const config = {
       headers: {
-        Authorization: `Bearer ${userData.data.token}`,
+        Authorization: `Bearer ${userData.data.Token}`,
       },
     };
     axios
       .post(
-        "http://localhost:8080/message/",
+        "http://localhost:1234/message/",
         {
           content: messageContent,
           chatId: chat_id,
@@ -52,18 +52,18 @@ function ChatArea() {
     console.log("Users refreshed");
     const config = {
       headers: {
-        Authorization: `Bearer ${userData.data.token}`,
+        Authorization: `Bearer ${userData.data.Token}`,
       },
     };
     axios
-      .get("http://localhost:8080/message/" + chat_id, config)
+      .get("http://localhost:1234/message/" + chat_id, config)
       .then(({ data }) => {
         setAllMessages(data);
         setloaded(true);
         // console.log("Data from Acess Chat API ", data);
       });
     // scrollToBottom();
-  }, [refresh, chat_id, userData.data.token]);
+  }, [refresh, chat_id, userData.data.Token]);
 
   if (!loaded) {
     return (
@@ -122,7 +122,7 @@ function ChatArea() {
             .reverse()
             .map((message, index) => {
               const sender = message.sender;
-              const self_id = userData.data._id;
+              const self_id = userData.data.id;
               if (sender._id === self_id) {
                 // console.log("I sent it ");
                 return <MessageSelf props={message} key={index} />;

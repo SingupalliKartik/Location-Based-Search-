@@ -4,7 +4,7 @@ const messageModel = mongoose.Schema(
   {
     sender: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "register",
+      ref: "RegisterData",
     },
     content: {
       type: String,
@@ -12,7 +12,7 @@ const messageModel = mongoose.Schema(
     },
     reciever: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "register",
+      ref: "RegisterData",
     },
     chat: {
       type: mongoose.Schema.Types.ObjectId,

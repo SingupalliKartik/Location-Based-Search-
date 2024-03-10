@@ -175,16 +175,17 @@ console.log(firlocation);
 
             <div>
                 <label class=" dark:text-gray-200" for="passwordConfirmation">Your Location</label>
-                <button onClick={getlocation} name="Location" id="passwordConfirmation" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-transparent border border-gray-300 rounded-md bg-transparent dark:text-gray-300 dark:border-gray-600  dark:focus:border-red-600 ">My current location</button>
+                <button onClick={getlocation} name="Location" id="passwordConfirmation" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-transparent border border-gray-300 rounded-md bg-transparent dark:text-gray-300 dark:border-gray-600  dark:focus:border-green-600  ">My current location</button>
             </div>
             <div>
                 <label class=" dark:text-gray-200" for="passwordConfirmation">Core Skill</label>
                 <select onChange={setdata} name="CoreSkill" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-transparent border border-gray-300 rounded-md bg-transparent dark:text-gray-300 dark:border-gray-600  dark:focus:border-red-600 ">
-                <option className='bg-[#111111] ' value="beginner">Cricket</option>
-                                            <option className='bg-[#111111]' value="intermediate">Football</option>
-                                            <option className='bg-[#111111]' value="advanced">Badminton</option>
-                                            <option className='bg-[#111111]' value="master">Chess</option>
-                                            <option className='bg-[#111111]' value="champion">Hockey</option>
+                <option className='bg-[#111111] ' value="Cricket">Cricket</option>
+                                            <option className='bg-[#353434]' value="Football">Select Core Skill</option>
+                                            <option className='bg-[#111111]' value="Football">Football</option>
+                                            <option className='bg-[#111111]' value="Badminton">Badminton</option>
+                                            <option className='bg-[#111111]' value="Chess">Chess</option>
+                                            <option className='bg-[#111111]' value="Hockey">Hockey</option>
                 </select>
             </div>
             <div className=''>
@@ -266,8 +267,8 @@ console.log(firlocation);
             />
         </div>  
             <div>
-                <label class=" dark:text-gray-200">Date of Birth</label>
-                <input onChange={setdata} name="DOB" id="date" type="date" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-transparent border border-gray-300 rounded-md bg-transparent dark:text-gray-300 dark:border-gray-600  dark:focus:border-red-600 "/>
+                <label class=" dark:text-gray-200">Age(in year)</label>
+                <input onChange={setdata} name="DOB" id="date" type="number" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-transparent border border-gray-300 rounded-md bg-transparent dark:text-gray-300 dark:border-gray-600  dark:focus:border-red-600 "/>
             </div>
             <div>
                 <label  class=" dark:text-gray-200" for="passwordConfirmation">Additonal Bio</label>
@@ -290,7 +291,7 @@ console.log(firlocation);
                     <p class="pl-1 ">or drag and drop</p>
                   </div>
                   <p class="text-xs ">
-                    PNG, JPG, GIF up to 10MB
+                    PNG, JPG, GIF up to 2MB
                   </p>
                 </div>
               </div>

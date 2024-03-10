@@ -28,6 +28,7 @@ const SignUp = ()=>{
           const response = await axios.post("http://localhost:1234/signup",{
               FName,LName,Email,Password,Number
           })
+          localStorage.setItem("userData", JSON.stringify(response));
            const {Token,id} = response.data;
            localStorage.setItem('token', Token);
            axios.defaults.headers.common["Authorization"] = Token;
@@ -149,6 +150,9 @@ const SignUp = ()=>{
                             <div className="flex -mx-3">
                                 <div className="w-full px-3 mb-5">
                                     <button onClick={savedata} className="block w-full max-w-xs mx-auto bg-red-700 hover:bg-red-800  text-white rounded-lg px-3 py-3 font-semibold">REGISTER NOW</button>
+                                </div>
+                                <div className="w-full px-3 mb-5">
+                                    <button onClick={()=>{navigate("/login")}} className="block w-full max-w-xs mx-auto bg-red-700 hover:bg-red-800  text-white rounded-lg px-3 py-3 font-semibold">LOG IN</button>
                                 </div>
                             </div>
                         </div>

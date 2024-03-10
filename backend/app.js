@@ -6,12 +6,19 @@ const port = process.env.PORT || 1234;
 const cors = require("cors");
 const auth = require("./src/routes/auth");
 const skill = require("./src/routes/skill");
-//const userRoutes = require("./src/routes/userRoutes");
+const userRoutes = require("./src/routes/userRoutes");
 const chatRoutes = require("./src/routes/chatRoutes");
 const messageRoutes = require("./src/routes/messageRoutes");
 
 const { notFound, errorHandler } = require("./src/middleware/errorMiddleware");
-
+try {
+  mongoose.connect(process.env.DatabaseConnect).then(() => {
+    console.log("Connected to Database");
+  
+  })
+} catch (error) {
+  console.log(error);
+}
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -38,6 +45,7 @@ app.use(skill);
 //app.use("/user", userRoutes);
 app.use("/chat", chatRoutes);
 app.use("/message", messageRoutes);
+app.use("/user", userRoutes);
 
 // Error Handling middlewares
 app.use(notFound);
@@ -47,12 +55,7 @@ app.get("/", (req, res) => {
 });
 
 //Connect Data Base
-try {
-  mongoose.connect(process.env.DatabaseConnect);
-  console.log("Data bas connect successfully...");
-} catch (error) {
-  console.log(error);
-}
+
 
 app.listen(port, () => {
   console.log("Connection successfully... ");
