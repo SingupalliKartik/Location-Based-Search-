@@ -34,13 +34,13 @@ const Router = ()=>{
         <Route exact path="/login" Component={Login}></Route>
 
         
-        <Route path="app" element={<MainContainer />}>
-          <Route path="welcome" element={<Welcome />}></Route>
-          <Route path="chat/:_id" element={<ChatArea />}></Route>
-          <Route path="users" element={<Users />}></Route>
-          <Route path="groups" element={<Groups />}></Route>
-          <Route path="create-groups" element={<CreateGroups />}></Route>
-        </Route>
+        <Route path="/app" element={<MainContainer />}></Route>
+          <Route path="/welcome" element={<Welcome />}></Route>
+          <Route path="/chat/:id" element={<ChatArea />}></Route>
+          <Route path="/users" element={<Users />}></Route>
+          <Route path="/groups" element={<Groups />}></Route>
+          <Route path="/create-groups" element={<CreateGroups />}></Route>
+       
         <Route exact path="/dashboard/:id" Component={Dashboard}></Route>
         <Route exact path="/common_dashboard/:id" Component={CommonDashboard}></Route>
         {/* <Route exact path="/sport_detail_form/:id" Component={SportDetailForm}></Route> */}

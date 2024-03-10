@@ -33,7 +33,7 @@ function ChatArea() {
     };
     axios
       .post(
-        "http://localhost:8080/message/",
+        "http://localhost:1234/message/",
         {
           content: messageContent,
           chatId: chat_id,
