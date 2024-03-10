@@ -15,6 +15,7 @@ function App() {
 
   return (
     <>
+<<<<<<< HEAD
 
     <Router/>
     {/* <UserData></UserData> */}
@@ -22,6 +23,13 @@ function App() {
  </>
   )
 
+=======
+      <Router />
+      {/* <UserData></UserData> */}
+      {/* <HireTrainee></HireTrainee> */}
+    </>
+  );
+>>>>>>> 4647b48ed42f5d568b14f20721dfb7b2495bc284
 }
 
 export default App;
