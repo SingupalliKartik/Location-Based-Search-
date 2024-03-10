@@ -56,7 +56,7 @@ const Router = ()=>{
         </Route>
         
         <Route exact path="/headlines" Component={News}></Route>
-        <Route exact path="/my-profile" Component={UserData}></Route>
+        <Route exact path="/my-profile/:id" Component={UserData}></Route>
         <Route exact path="/find-trainer" Component={HireTrainee}></Route>
         </Routes>
         </>

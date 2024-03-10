@@ -127,7 +127,7 @@ const Sidebar = () => {
               stroke-linejoin="round"
             />
           </svg>
-          <Link to='/my-profile' className="text-[15px] ml-4 text-gray-200 font-bold">
+          <Link to={`/my-profile/${id}`} className="text-[15px] ml-4 text-gray-200 font-bold">
             My Profile
           </Link>
         </div>

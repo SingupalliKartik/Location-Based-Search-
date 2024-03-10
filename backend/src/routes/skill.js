@@ -17,6 +17,19 @@ router.get("/sport_data/:id",async(req,res)=>{
         res.sendStatus(404);
     }
 })
+router.get("/sport_user_data/:id",async(req,res)=>{
+    try {
+        const id = req.params.id;
+     const userdata = await Register.findOne({_id:id});
+     const Email = userdata.Email;
+     const Number = userdata.Number;
+     const user_sport_data = await SportData.findOne({Email});
+     res.status(202).json({Number,user_sport_data});
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(404);
+    }
+})
 
 router.post("/sportsDetailForm/:id",async(req,res)=>{
     try {

@@ -16,7 +16,7 @@ function App() {
   return (
     <>
     <Router/>
-    <UserData></UserData>
+    {/* <UserData></UserData> */}
     {/* <HireTrainee></HireTrainee> */}
  </>
   )
