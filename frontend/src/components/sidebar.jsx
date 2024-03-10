@@ -9,8 +9,8 @@ import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import EventIcon from "@mui/icons-material/Event";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import HelpIcon from '@mui/icons-material/Help';
-         
+import HelpIcon from "@mui/icons-material/Help";
+import MenuIcon from '@mui/icons-material/Menu';
 const Sidebar = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -22,7 +22,9 @@ const Sidebar = () => {
 
   const getdata = async () => {
     try {
-      const result = await axios.get(`https://hackathone-backend-two.vercel.app/sport_data/${id}`);
+      const result = await axios.get(
+        `https://hackathone-backend-two.vercel.app/sport_data/${id}`
+      );
       const { Name, user_sport_data } = result.data;
       const storage = getStorage();
       console.log(user_sport_data.image);
@@ -69,6 +71,7 @@ const Sidebar = () => {
 
   return (
     <div className="  fixed custom:static block ">
+      <MenuIcon/>
       <span
         className=" text-white text-4xl top-5 left-4 cursor-pointer"
         onClick={toggleSidebar}
@@ -97,7 +100,7 @@ const Sidebar = () => {
           <div className="my-2 bg-gray-600 h-[1px]"></div>
         </div>
 
-        <Link to={`/dashboard/${id}`}>
+        <Link>
           <div className="p-2.5 mt-1 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-red-800 text-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -231,9 +234,8 @@ const Sidebar = () => {
           className="p-2.5 mt-1 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-red-800 text-white"
           onClick={toggleSubMenu}
         >
-           <HelpIcon />
+          <HelpIcon />
           <div className="flex justify-between w-full items-center">
-            
             <span className="text-[15px] ml-4 text-gray-200 font-bold">
               Help & Support
             </span>
