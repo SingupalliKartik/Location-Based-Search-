@@ -49,16 +49,16 @@ app.use("/message", messageRoutes);
 app.use("/user", userRoutes);
 
 // Error Handling middlewares
-app.use(notFound);
-app.use(errorHandler);
+// app.use(notFound);
+// app.use(errorHandler);
 app.get("/", (req, res) => {
   res.send("Hello how are you");
 });
 
-//Connect Data Base
-app.get("",(req,res)=>{
-  res.send("Hello...")
-})
+// //Connect Data Base
+// app.get("",(req,res)=>{
+//   res.send("Hello...")
+// })
 
 app.listen(port, () => {
   console.log("Connection successfully... ");
