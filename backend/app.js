@@ -12,7 +12,7 @@ const messageRoutes = require("./src/routes/messageRoutes");
 
 const { notFound, errorHandler } = require("./src/middleware/errorMiddleware");
 try {
-  mongoose.connect(process.env.DatabaseConnect).then(() => {
+  mongoose.connect(process.env.DatabaseConnect,{ useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false }).then(() => {
     console.log("Connected to Database");
   
   })
