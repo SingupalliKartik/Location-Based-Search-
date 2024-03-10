@@ -338,7 +338,7 @@ const Map = () => {
   const map = () => {
     if (initial2.length > 1) {
       return (
-        <div style={{ backgroundColor: "cyan", width: "80vw", height: "83vh" }}>
+        <div style={{ backgroundColor: "cyan", width: "100vw", height: "83vh" }}>
           <GoogleMapReact
             bootstrapURLKeys={{ key: "" }}
             defaultZoom={14}
