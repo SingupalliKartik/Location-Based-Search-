@@ -1,6 +1,8 @@
 import {React,useState} from "react";
 import { Link,useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = ()=>{
 
@@ -41,11 +43,13 @@ const Login = ()=>{
      const id = result.data.id;
      localStorage.setItem('token', token);
      axios.defaults.headers.common["Authorization"] = token;
-     alert("Success");
+    //  alert("Success");
+    toast("Successfully Save ...")
      navigate(`/dashboard/${id}`);
      }
     } catch (error) {
-        alert("Invalid Details please Sing In again...")
+        // alert("Invalid Details please Sing In again...")
+        toast("Invalid Details please Sing In again...")
     }
     }
     
@@ -190,6 +194,7 @@ const Login = ()=>{
         </form>
       </div>
     </div>
+    <ToastContainer/>
           </>
       )
   }

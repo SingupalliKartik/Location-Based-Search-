@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate,Link, useParams } from "react-router-dom";
 import Sidebar from './sidebar';
 import Map from "./Map";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Dashboard  = ()=>{
   const {id} =  useParams();
   const navigate = useNavigate();
@@ -18,6 +20,7 @@ const Dashboard  = ()=>{
 		   console.log(sport_data);
            finName(Name);   
         } catch (error) {
+			
             console.log(error);
         }
     }
@@ -34,7 +37,7 @@ const getlocation = ()=>{
 	try {
 	const location =	navigator.geolocation.getCurrentPosition(correct);
 	} catch (error) {
-		alert(error);
+		toast(error);
 		console.log(error);
 	}
 }
@@ -79,6 +82,7 @@ const getlocation = ()=>{
     <Sidebar></Sidebar>
     <Map/>
   </div>
+  <ToastContainer/>
         </>
     )
 }

@@ -11,6 +11,7 @@ import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import HelpIcon from "@mui/icons-material/Help";
 import MenuIcon from '@mui/icons-material/Menu';
+
 const Sidebar = () => {
   const { id } = useParams();
   const navigate = useNavigate();
