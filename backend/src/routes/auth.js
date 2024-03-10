@@ -3,6 +3,7 @@ const router = express();
 const Register = require("../models/register")
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcryptjs');
+const userauth = require("../middleware/userauth");
 
 //Sign Up 
 router.post("/signup",async(req,res)=>{
@@ -70,6 +71,16 @@ router.get("/user_auth_data/:id",async(req,res)=>{
     const id = req.params.id;
  const userdata = await Register.findOne({_id:id},"-Password");
  res.status(202).json({userdata});
+} catch (error) {
+    console.log(error);
+    res.sendStatus(404);
+}
+})
+
+router.get("/homepage",userauth,async(req,res)=>{
+  try {
+    const id = req.id;
+ res.status(202).json({id});
 } catch (error) {
     console.log(error);
     res.sendStatus(404);

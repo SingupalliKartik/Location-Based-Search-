@@ -253,12 +253,6 @@ const Map = () => {
               <option className="bg-[#111111] " value="">
                 Search By
               </option>
-              <option className="bg-[#111111]" value="Name">
-                Name
-              </option>
-              {/* <option className="bg-[#111111]" value="Location">
-                    Location
-                  </option> */}
               <option className="bg-[#111111]" value="age">
                 Age
               </option>
@@ -384,7 +378,7 @@ const Map = () => {
               defaultZoom={14}
               center={{ lat: latitude, lng: longitude }}
             >
-              {userloction.map((location) => {
+              {initial.map((location) => {
                 console.log(location.latitude);
                 if (location.latitude !== "" && location.longitude !== "") {
                   return (
@@ -422,7 +416,8 @@ const Map = () => {
             </GoogleMapReact>
           </div>
         );
-      } else if (ini_search === "bycoreskill") {
+      }
+       else if (ini_search === "bycoreskill") {
         return (
           <div
             style={{ backgroundColor: "cyan", width: "80vw", height: "83vh" }}
@@ -456,7 +451,8 @@ const Map = () => {
             </GoogleMapReact>
           </div>
         );
-      } else if (ini_search === "age") {
+      }
+       else if (ini_search === "age") {
         return (
           <div
             style={{ backgroundColor: "cyan", width: "80vw", height: "83vh" }}
@@ -467,7 +463,7 @@ const Map = () => {
               center={{ lat: latitude, lng: longitude }}
             >
               {initial.map((info) => {
-                if (ini_user.DOB === info.DOB) {
+                if ( info.DOB <= ini_user.DOB ) {
                   if (info.latitude !== "" && info.longitude !== "") {
                     return (
                       <LocationOnIcon
@@ -492,61 +488,14 @@ const Map = () => {
             </GoogleMapReact>
           </div>
         );
-      } else if (ini_search === "Location") {
-        // console.log("Hello")
-        filterNearbyLocations(latitude, longitude);
+      } 
+     else {
         return (
           <div
             style={{ backgroundColor: "cyan", width: "80vw", height: "83vh" }}
           >
             <GoogleMapReact
               bootstrapURLKeys={{ key: "" }}
-              defaultZoom={14}
-              center={{ lat: latitude, lng: longitude }}
-            >
-              {/* {  initial.map((info)=>{
-      if(ini_user.FName===info.FName){
-        return (
-          <LocationOnIcon
-            color="secondary"
-            lat={info.latitude}
-            lng={info.longitude}
-            />)
-      }
-      else{
-        return(
-          <>
-          </>
-        )
-      }
-     })} */}
-              {/* {initial.map((location) => {
-              // console.log(location)
-            
-            })} */}
-              {/* <AnyReactComponent lat={59.955413} lng={30.337844} text="My Marker" /> */}
-
-              <LocationSearchingIcon
-                color="primary"
-                lat={latitude}
-                lng={longitude}
-                text="My Marker"
-                fontSize="large"
-              />
-            </GoogleMapReact>
-          </div>
-        );
-      } else {
-        return (
-          <div
-            style={{ backgroundColor: "cyan", width: "80vw", height: "83vh" }}
-          >
-            <GoogleMapReact
-              bootstrapURLKeys={{ key: "" }}
-              // defaultCenter={{
-              //   lat: 23.237541,
-              //   lng: 77.405549,
-              // }}
               defaultZoom={14}
               center={{ lat: latitude, lng: longitude }}
             >

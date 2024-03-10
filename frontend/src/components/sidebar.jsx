@@ -33,11 +33,16 @@ const Sidebar = () => {
       }
       finName(Name);
     } catch (error) {
-      console.log(error);
+      console.log(error.message)
+      if(error.message === "Request failed with status code 401" || error.status === 401){
+        navigate("/");
+      }
+      navigate("/");
     }
   };
-
+  const token = localStorage.getItem("token");
   useEffect(() => {
+    axios.defaults.headers.common["Authorization"] = token;
     getdata();
   }, []);
 
@@ -81,7 +86,7 @@ const Sidebar = () => {
           <div className="my-2 bg-gray-600 h-[1px]"></div>
         </div>
 
-        <Link to="/">
+        <Link >
           <div className="p-2.5 mt-1 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-red-800 text-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -280,7 +285,7 @@ const Sidebar = () => {
           <path d="M10 4L19 8L10 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
         
-          <Link to='/headlines' className="text-[15px] ml-4 text-gray-200 font-bold">Sports News</Link>
+          <Link to={`/headlines/${id}`} className="text-[15px] ml-4 text-gray-200 font-bold">Sports News</Link>
         </div>
         <div className="my-4 bg-gray-600 h-[1px]"></div>
         <Link to={`/app/${id}`}>

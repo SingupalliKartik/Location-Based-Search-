@@ -2,8 +2,9 @@ const express = require("express");
 const router = express();
 const Register = require("../models/register");
 const SportData = require("../models/sportsInterest");
+const userauth = require("../middleware/userauth");
 
-router.get("/sport_data/:id",async(req,res)=>{
+router.get("/sport_data/:id",userauth,async(req,res)=>{
     try {
         const id = req.params.id;
      const userdata = await Register.findOne({_id:id});
