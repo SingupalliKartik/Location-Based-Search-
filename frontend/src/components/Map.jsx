@@ -77,9 +77,6 @@ const [nearbyLocations, setNearbyLocations] = useState(null);
       const longitude = position.coords.longitude;
       setLatitude(latitude);
       setLongitude(longitude);
-      // filterNearbyLocations(latitude, longitude);
-      // console.log(longitude);
-      // console.log(latitude);
     } catch (error) {
       console.log(error);
       alert(error);

@@ -29,14 +29,12 @@ const Router = ()=>{
     return(
         <>
         <Routes>
-        <Route exact path="/" Component={FindPlayer}></Route> 
+        <Route exact path="/" Component={SignUp}></Route> 
         <Route exact path="/signup" Component={SignUp }></Route> 
         <Route exact path="/map" Component={Map }></Route>
         <Route exact path="/login" Component={Login}></Route>
         <Route exact path="/Ongoingevents" Component={Ongoingevents}></Route>
 
-        
-<<<<<<< HEAD
         <Route path="/app" element={<MainContainer />}></Route>
           <Route path="/welcome" element={<Welcome />}></Route>
           <Route path="/chat/:id" element={<ChatArea />}></Route>
@@ -44,20 +42,11 @@ const Router = ()=>{
           <Route path="/groups" element={<Groups />}></Route>
           <Route path="/create-groups" element={<CreateGroups />}></Route>
        
-=======
-        
->>>>>>> f9c50306f86e5bff40f5da53d90a1e254809e2f7
         <Route exact path="/dashboard/:id" Component={Dashboard}></Route>
         <Route exact path="/common_dashboard/:id" Component={CommonDashboard}></Route>
         {/* <Route exact path="/sport_detail_form/:id" Component={SportDetailForm}></Route> */}
         <Route exact path="/sport_detail_form/:id" Component={Profile}></Route>
-
-<<<<<<< HEAD
-
-=======
         <Route exact path="/headlines" Component={News}></Route>
-
- 
         <Route path="app" element={<MainContainer />}>
           <Route path="welcome" element={<Welcome />}></Route>
           <Route path="chat/:_id" element={<ChatArea />}></Route>
@@ -65,7 +54,6 @@ const Router = ()=>{
           <Route path="groups" element={<Groups />}></Route>
           <Route path="create-groups" element={<CreateGroups />}></Route>
         </Route>
->>>>>>> f9c50306f86e5bff40f5da53d90a1e254809e2f7
         
         </Routes>
         </>
