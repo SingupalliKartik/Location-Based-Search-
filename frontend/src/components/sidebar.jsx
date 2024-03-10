@@ -71,12 +71,12 @@ const Sidebar = () => {
 
   return (
     <div className="  fixed custom:static block ">
-      <MenuIcon/>
+     
       <span
         className=" text-white text-4xl top-5 left-4 cursor-pointer"
         onClick={toggleSidebar}
-      >
-        <i className="bi bi-filter-left px-2 bg-white rounded-md"></i>
+      > <MenuIcon/>
+        {/* <i className="bi bi-filter-left px-2 bg-white rounded-md"></i> */}
       </span>
       <div
         className={`sidebar z-10 min-h-[95vh] top-0 bottom-0 lg:left-0 p-2 w-[300px] overflow-y-auto text-center bg-[#131313] ${
