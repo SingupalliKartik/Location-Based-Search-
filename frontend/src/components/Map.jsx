@@ -185,10 +185,10 @@ const pinpointLocation = (location) => {
                   <option className="bg-[#111111] " value="">
                     Search By
                   </option>
-                  <option className="bg-[#111111]" value="byname">
+                  <option className="bg-[#111111]" value="Name">
                     Name
                   </option>
-                  <option className="bg-[#111111]" value="bylocation">
+                  <option className="bg-[#111111]" value="Location">
                     Location
                   </option>
                   <option className="bg-[#111111]" value="byage">
