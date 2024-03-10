@@ -34,7 +34,6 @@ const Sidebar = () => {
       finName(Name);
     } catch (error) {
       console.log(error);
-      alert(error);
     }
   };
 
