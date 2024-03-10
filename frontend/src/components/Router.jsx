@@ -47,7 +47,7 @@ const Router = ()=>{
         {/* <Route exact path="/sport_detail_form/:id" Component={SportDetailForm}></Route> */}
         <Route exact path="/sport_detail_form/:id" Component={Profile}></Route>
         <Route exact path="/headlines" Component={News}></Route>
-        <Route path="app" element={<MainContainer />}>
+        <Route path="/app/:id" element={<MainContainer />}>
           <Route path="welcome" element={<Welcome />}></Route>
           <Route path="chat/:_id" element={<ChatArea />}></Route>
           <Route path="users" element={<Users />}></Route>
@@ -57,7 +57,7 @@ const Router = ()=>{
         
         <Route exact path="/headlines" Component={News}></Route>
         <Route exact path="/my-profile/:id" Component={UserData}></Route>
-        <Route exact path="/find-trainer" Component={HireTrainee}></Route>
+        <Route exact path="/find-trainer/:id" Component={HireTrainee}></Route>
         </Routes>
         </>
     )

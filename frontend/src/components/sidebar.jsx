@@ -162,7 +162,7 @@ const Sidebar = () => {
             />
           </svg>
 
-          <Link to='/find-trainer' className="text-[15px] ml-4 text-gray-200 font-bold">
+          <Link to={`/find-trainer/${id}`} className="text-[15px] ml-4 text-gray-200 font-bold">
             Hire Trainee
           </Link>
         </div>
@@ -283,7 +283,7 @@ const Sidebar = () => {
           <Link to='/headlines' className="text-[15px] ml-4 text-gray-200 font-bold">Sports News</Link>
         </div>
         <div className="my-4 bg-gray-600 h-[1px]"></div>
-        <Link to="/app">
+        <Link to={`/app/${id}`}>
         <div
           className="p-2.5 mt-1 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-red-800 text-white"
           onClick={toggleSubMenu}
