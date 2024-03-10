@@ -21,7 +21,7 @@ function Sidebar() {
   const lightTheme = useSelector((state) => state.themeKey);
   // const refresh = useSelector((state) => state.refreshKey);
   const { refresh, setRefresh } = useContext(myContext);
-  console.log("Context API : refresh : ", refresh);
+  // console.log("Context API : refresh : ", refresh);
   const [conversations, setConversations] = useState([]);
   // console.log("Conversations of Sidebar : ", conversations);
   const userData = JSON.parse(localStorage.getItem("userData"));
@@ -37,12 +37,12 @@ function Sidebar() {
     // console.log("Sidebar : ", user.token);
     const config = {
       headers: {
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${user.Token}`,
       },
     };
 
-    axios.get("http://localhost:8080/chat/", config).then((response) => {
-      console.log("Data refresh in sidebar ", response.data);
+    axios.get("http://localhost:1234/chat/", config).then((response) => {
+      // console.log("Data refresh in sidebar ", response.data);
       setConversations(response.data);
       // setRefresh(!refresh);
     });
@@ -142,18 +142,22 @@ function Sidebar() {
                       "chat/" +
                         conversation._id +
                         "&" +
-                        conversation.users[1].name
+                        conversation.users[1].FName
                     );
                   }}
                   // dispatch change to refresh so as to update chatArea
                 >
+               
+                {/* {conversation.users[1].name[0]!==undefined && conversation.users[1].name !== undefined?
+                 <>
                   <p className={"con-icon" + (lightTheme ? "" : " dark")}>
                     {conversation.users[1].name[0]}
                   </p>
                   <p className={"con-title" + (lightTheme ? "" : " dark")}>
                     {conversation.users[1].name}
                   </p>
-
+                 </>: null
+} */}
                   <p className="con-lastMessage">
                     No previous Messages, click here to start a new chat
                   </p>
@@ -173,15 +177,15 @@ function Sidebar() {
                     "chat/" +
                       conversation._id +
                       "&" +
-                      conversation.users[1].name
+                      conversation.users[1].FName
                   );
                 }}
               >
                 <p className={"con-icon" + (lightTheme ? "" : " dark")}>
-                  {conversation.users[1].name[0]}
+                  {conversation.users[1].FName[0]}
                 </p>
                 <p className={"con-title" + (lightTheme ? "" : " dark")}>
-                  {conversation.users[1].name}
+                  {conversation.users[1].FName}
                 </p>
 
                 <p className="con-lastMessage">

@@ -1,5 +1,5 @@
 const generateToken = require("../Config/generateToken");
-const UserModel = require("../modals/userModel");
+const UserModel = require("../models/register");
 const expressAsyncHandler = require("express-async-handler");
 // Login
 const loginController = expressAsyncHandler(async (req, res) => {
@@ -70,9 +70,9 @@ const fetchAllUsersController = expressAsyncHandler(async (req, res) => {
   const keyword = req.query.search
     ? {
         $or: [
-          { name: { $regex: req.query.search, $options: "i" } },
-          { email: { $regex: req.query.search, $options: "i" } },
-        ],
+          { FName: { $regex: req.query.search, $options: "i" } },
+          { Email: { $regex: req.query.search, $options: "i" } },
+        ],  
       }
     : {};
 
