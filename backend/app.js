@@ -1,47 +1,59 @@
-require('dotenv').config();
-const express  = require("express");
+require("dotenv").config();
+const express = require("express");
 const { default: mongoose } = require("mongoose");
 const app = express();
-const port = process.env.PORT|| 1234;
-const cors = require('cors');
-const auth  = require("./src/routes/auth");
-const skill  = require("./src/routes/skill");
+const port = process.env.PORT || 1234;
+const cors = require("cors");
+const auth = require("./src/routes/auth");
+const skill = require("./src/routes/skill");
+//const userRoutes = require("./src/routes/userRoutes");
+const chatRoutes = require("./src/routes/chatRoutes");
+const messageRoutes = require("./src/routes/messageRoutes");
 
-app.use(cors(
-    {
-      origin:"http://localhost:5173",
-       methods: ["POST", "GET","OPTIONS", "PATCH", "PUT", "DELETE"],
-      credentials: true,
-    }
-  ));
+const { notFound, errorHandler } = require("./src/middleware/errorMiddleware");
 
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["POST", "GET", "OPTIONS", "PATCH", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
-  app.use(function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', "http://localhost:5173",);
-    res.header('Access-Control-Allow-Credentials', "true");
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
-  });
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
-  //Set Use State
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: false }));
-  app.use(auth);
-  app.use(skill);
-  
-app.get("/",(req,res)=>{
-    res.send("Hello how are you")
-})
+//Set Use State
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(auth);
+app.use(skill);
+//app.use("/user", userRoutes);
+app.use("/chat", chatRoutes);
+app.use("/message", messageRoutes);
 
+// Error Handling middlewares
+app.use(notFound);
+app.use(errorHandler);
+app.get("/", (req, res) => {
+  res.send("Hello how are you");
+});
 
 //Connect Data Base
-try { 
-    mongoose.connect(process.env.DatabaseConnect)
-    console.log("Data bas connect successfully...")
+try {
+  mongoose.connect(process.env.DatabaseConnect);
+  console.log("Data bas connect successfully...");
 } catch (error) {
-    console.log(error);
+  console.log(error);
 }
 
-app.listen(port,()=>{
-    console.log("Connection successfully... ")
-})
+app.listen(port, () => {
+  console.log("Connection successfully... ");
+});
