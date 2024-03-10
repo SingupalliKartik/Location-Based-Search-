@@ -4,7 +4,13 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { ref, getStorage, getDownloadURL } from "firebase/storage";
 import axios from "axios";
 import Ongoingevents from "./Ongoingevents";
-
+import NewspaperIcon from "@mui/icons-material/Newspaper";
+import EventAvailableIcon from "@mui/icons-material/EventAvailable";
+import EventIcon from "@mui/icons-material/Event";
+import PersonSearchIcon from "@mui/icons-material/PersonSearch";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import HelpIcon from '@mui/icons-material/Help';
+         
 const Sidebar = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -33,8 +39,11 @@ const Sidebar = () => {
       }
       finName(Name);
     } catch (error) {
-      console.log(error.message)
-      if(error.message === "Request failed with status code 401" || error.status === 401){
+      console.log(error.message);
+      if (
+        error.message === "Request failed with status code 401" ||
+        error.status === 401
+      ) {
         navigate("/");
       }
     }
@@ -59,8 +68,11 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="  fixed custom:static block " >
-      <span className=" text-white text-4xl top-5 left-4 cursor-pointer" onClick={toggleSidebar}>
+    <div className="  fixed custom:static block ">
+      <span
+        className=" text-white text-4xl top-5 left-4 cursor-pointer"
+        onClick={toggleSidebar}
+      >
         <i className="bi bi-filter-left px-2 bg-white rounded-md"></i>
       </span>
       <div
@@ -85,7 +97,7 @@ const Sidebar = () => {
           <div className="my-2 bg-gray-600 h-[1px]"></div>
         </div>
 
-        <Link >
+        <Link>
           <div className="p-2.5 mt-1 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-red-800 text-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -102,36 +114,11 @@ const Sidebar = () => {
           </div>
         </Link>
         <div className="p-2.5 mt-1 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-red-800 text-white">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+          <AccountCircleIcon />
+          <Link
+            to={`/my-profile/${id}`}
+            className="text-[15px] ml-4 text-gray-200 font-bold"
           >
-            <path
-              d="M8 21H12"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M10 21V3"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M10 4L19 8L10 12"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-          <Link to={`/my-profile/${id}`} className="text-[15px] ml-4 text-gray-200 font-bold">
             My Profile
           </Link>
         </div>
@@ -166,48 +153,52 @@ const Sidebar = () => {
             />
           </svg>
 
-          <Link to={`/find-trainer/${id}`} className="text-[15px] ml-4 text-gray-200 font-bold">
+          <Link
+            to={`/find-trainer/${id}`}
+            className="text-[15px] ml-4 text-gray-200 font-bold"
+          >
             Hire Trainee
           </Link>
         </div>
         <div className="p-2.5 mt-1 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-red-800 text-white">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M8 21H12"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M10 21V3"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M10 4L19 8L10 12"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-
+          <PersonSearchIcon />
           <span className="text-[15px] ml-4 text-gray-200 font-bold">
             Find Players
           </span>
         </div>
         <Link to="/Ongoingevents">
           <div className="p-2.5 mt-1 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-red-800 text-white">
+            <EventIcon />
+            <span className="text-[15px] ml-4 text-gray-200 font-bold">
+              Ongoing Events
+            </span>
+          </div>
+        </Link>
+        <div className="p-2.5 mt-1 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-red-800 text-white">
+          <EventAvailableIcon />
+
+          <span className="text-[15px] ml-4 text-gray-200 font-bold">
+            Past Events
+          </span>
+        </div>
+        <div className="p-2.5 mt-1 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-red-800 text-white">
+          <NewspaperIcon />
+
+          <Link
+            to={`/headlines/${id}`}
+            className="text-[15px] ml-4 text-gray-200 font-bold"
+          >
+            Sports News
+          </Link>
+        </div>
+        <div className="my-4 bg-gray-600 h-[1px]"></div>
+        <Link to={`/app/${id}`}>
+          <div
+            className="p-2.5 mt-1 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-red-800 text-white"
+            onClick={toggleSubMenu}
+          >
             <svg
+              class="fill-stroke"
               width="24"
               height="24"
               viewBox="0 0 24 24"
@@ -215,133 +206,34 @@ const Sidebar = () => {
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M8 21H12"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M10 21V3"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M10 4L19 8L10 12"
+                d="M15 10L11 14L17 20L21 4L3 11L7 13L9 19L12 15"
                 stroke="currentColor"
                 stroke-width="1.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               />
             </svg>
-
-            <span className="text-[15px] ml-4 text-gray-200 font-bold">
-              Ongoing Events
-            </span>
+            <div className="flex justify-between w-full items-center">
+              <span className="text-[15px] ml-4 text-gray-200 font-bold">
+                Chatbox
+              </span>
+              <span className="text-sm rotate-180" id="arrow">
+                <i
+                  className={`bi bi-chevron-down ${
+                    isSubMenuVisible ? "rotate-180" : ""
+                  }`}
+                ></i>
+              </span>
+            </div>
           </div>
         </Link>
-        <div className="p-2.5 mt-1 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-red-800 text-white">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M8 21H12"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M10 21V3"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M10 4L19 8L10 12"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-
-          <span className="text-[15px] ml-4 text-gray-200 font-bold">
-            Past Events
-          </span>
-        </div>
-        <div className="p-2.5 mt-1 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-red-800 text-white">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 21H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M10 21V3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M10 4L19 8L10 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-        
-          <Link to={`/headlines/${id}`} className="text-[15px] ml-4 text-gray-200 font-bold">Sports News</Link>
-        </div>
-        <div className="my-4 bg-gray-600 h-[1px]"></div>
-        <Link to={`/app/${id}`}>
         <div
           className="p-2.5 mt-1 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-red-800 text-white"
           onClick={toggleSubMenu}
         >
-          <svg
-            class="fill-stroke"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M15 10L11 14L17 20L21 4L3 11L7 13L9 19L12 15"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
+           <HelpIcon />
           <div className="flex justify-between w-full items-center">
-            <span className="text-[15px] ml-4 text-gray-200 font-bold">
-              Chatbox
-            </span>
-            <span className="text-sm rotate-180" id="arrow">
-              <i
-                className={`bi bi-chevron-down ${
-                  isSubMenuVisible ? "rotate-180" : ""
-                }`}
-              ></i>
-            </span>
-          </div>
-        </div></Link>
-        <div
-          className="p-2.5 mt-1 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-red-800 text-white"
-          onClick={toggleSubMenu}
-        >
-          <svg
-            class="fill-stroke"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M15 10L11 14L17 20L21 4L3 11L7 13L9 19L12 15"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-          <div className="flex justify-between w-full items-center">
+            
             <span className="text-[15px] ml-4 text-gray-200 font-bold">
               Help & Support
             </span>
