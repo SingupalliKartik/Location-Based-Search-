@@ -87,7 +87,7 @@ const Sidebar = () => {
         <div className="text-gray-100 text-xl">
           <div className="p-2.5 mt-1 flex items-center justify-center">
             <img
-              className="lg:w-[70px] lg:h-[70px] rounded-full"
+              className="w-[50px] h-[50px] lg:w-[70px] lg:h-[70px] rounded-full"
               src={ini_url}
               alt=""
             />
