@@ -31,7 +31,7 @@ const SportDetailForm = ()=>{
           try {
           const { GameName,Levels,Location} = initial;
           const Email = ini_authSave.Email
-          const response = await axios.post(`http://localhost:1234/sportsDetailForm/${id}`,{
+          const response = await axios.post(`https://hackathone-backend-two.vercel.app/sportsDetailForm/${id}`,{
             GameName,Levels,Location
           })
            alert("Successfully Save ...")
@@ -46,7 +46,7 @@ const SportDetailForm = ()=>{
       
       const getuserprofile = async()=>{
         try {
-            let userdata = await axios.get(`http://localhost:1234/user_auth_data/${id}`);
+            let userdata = await axios.get(`https://hackathone-backend-two.vercel.app/user_auth_data/${id}`);
             userdata = userdata.data.userdata;
            fin_auth((info)=>{
             info.FName = userdata.FName;

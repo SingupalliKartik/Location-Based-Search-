@@ -46,7 +46,7 @@ function Users() {
   const getdata = async () => {
     try {
       const result = await axios.get(
-        `http://localhost:1234/sport_data/${userData.data.id}`
+        `https://hackathone-backend-two.vercel.app/sport_data/${userData.data.id}`
       );
       const sport_data = result.data.sport_data;
       const user_sport_data = result.data.user_sport_data;
@@ -80,7 +80,7 @@ function Users() {
         Authorization: `Bearer ${userData.data.Token}`,
       },
     };
-    axios.get("http://localhost:1234/user/fetchUsers", config).then((data) => {
+    axios.get("https://hackathone-backend-two.vercel.app/user/fetchUsers", config).then((data) => {
       console.log("UData refreshed in Users panel ");
       setUsers(data.data);
       // setRefresh(!refresh);
@@ -161,7 +161,7 @@ function Users() {
                     },
                   };
                   axios.post(
-                    "http://localhost:1234/chat/",
+                    "https://hackathone-backend-two.vercel.app/chat/",
                     {
                       userId: user._id,
                     },

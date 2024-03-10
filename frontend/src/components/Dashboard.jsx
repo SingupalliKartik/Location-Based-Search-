@@ -10,7 +10,7 @@ const Dashboard  = ()=>{
   const token = localStorage.getItem("token");
     const getdata  = async()=>{
         try {
-           const result = await axios.get(`http://localhost:1234/sport_data/${id}`) ;
+           const result = await axios.get(`https://hackathone-backend-two.vercel.app/sport_data/${id}`) ;
            const {Name,sport_data,user_sport_data} = result.data;
            if(user_sport_data===null || user_sport_data===undefined){
           navigate(`/sport_detail_form/${id}`)
@@ -19,7 +19,6 @@ const Dashboard  = ()=>{
            finName(Name);   
         } catch (error) {
             console.log(error);
-            alert(error);
         }
     }
 

@@ -33,7 +33,7 @@ function ChatArea() {
     };
     axios
       .post(
-        "http://localhost:1234/message/",
+        "https://hackathone-backend-two.vercel.app/message/",
         {
           content: messageContent,
           chatId: chat_id,
@@ -56,7 +56,7 @@ function ChatArea() {
       },
     };
     axios
-      .get("http://localhost:1234/message/" + chat_id, config)
+      .get("https://hackathone-backend-two.vercel.app/message/" + chat_id, config)
       .then(({ data }) => {
         setAllMessages(data);
         setloaded(true);
