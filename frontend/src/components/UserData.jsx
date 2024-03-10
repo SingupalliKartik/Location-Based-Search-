@@ -1,7 +1,60 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "./sidebar";
-
+import axios from "axios";
+import { ref, getStorage, getDownloadURL } from "firebase/storage";
+import { useParams } from "react-router-dom";
 const ProfileCard = () => {
+    const {id} = useParams();
+    const [initial,final] = useState({
+        Name:"",
+        Email:"",
+        DOB:"",
+        CoreSkill:"",
+        Number:"",
+        Bio:""
+    })
+    const [initial2,final2] = useState("");
+    const [ini_url, fin_url] = useState();
+    const getdata  = async()=>{
+        try {
+           const result = await axios.get(`http://localhost:1234/sport_user_data/${id}`) ;
+           const {Number,user_sport_data} = result.data;
+    
+           console.log(user_sport_data)
+           if(user_sport_data===null || user_sport_data===undefined){
+             navigate(`/sport_detail_form/${id}`)
+           }  
+           const storage = getStorage();
+      console.log(user_sport_data.image);
+      const imgref = ref(
+        storage,
+        `virtual_hackathone/${user_sport_data.image}`
+      );
+      try {
+        const url = await getDownloadURL(imgref);
+        fin_url(url);
+      } catch (error) {
+        console.log(error);
+      }
+           final((info)=>{
+             info.Name= user_sport_data.FName;
+             info.Email = user_sport_data.Email
+             info.DOB = user_sport_data.DOM
+             info.CoreSkill = user_sport_data.CoreSkill
+             info.Bio = user_sport_data.Bio
+             info.Number = Number
+           })
+           final2(initial)
+        } catch (error) {
+            console.log(error);
+            alert(error);
+        }
+    }
+console.log(initial2)
+console.log(ini_url)
+    useEffect(()=>{
+        getdata();
+    },[])
     return (<>
     <div className="flex">
         <Sidebar />
@@ -12,18 +65,18 @@ const ProfileCard = () => {
         <img class="object-cover object-top w-full" src='https://i.makeagif.com/media/1-14-2017/ytQnpt.gif' alt='Mountain'/>
     </div>
     <div class="mx-auto w-32 h-32 relative -mt-16 border-4 border-white rounded-full overflow-hidden">
-        <img class="object-cover object-center h-32" src='https://img.freepik.com/free-psd/3d-rendering-avatar_23-2150833548.jpg?size=338&ext=jpg&ga=GA1.1.1395880969.1709424000&semt=ais' alt='Woman looking front'/>
+        <img class="object-cover object-center h-32" src={ini_url} alt='Woman looking front'/>
     </div>
     <div class="text-center mt-2">
-        <h2 class="font-semibold">Player Name</h2>
-        <p class="text-gray-500">Chess Player</p>
+        <h2 class="font-semibold">{initial2.Name}</h2>
+        <p class="text-gray-500">{initial2.CoreSkill}</p>
     </div>
     <div className="flex justify-around py-6 font-semibold text-gray-200 rounded-lg bg-[#131313] my-4 w-full">
         <div className="text-lg flex flex-col gap-y-1">
-            <h1>Phone : 845485485</h1>
-            <h1>Email : ShreyashJain@gmail.com</h1>
+            <h1>Phone : {initial2.Number}</h1>
+            <h1>Email : {initial2.Email}</h1>
             <h1>Other Skills : badminton, Chess.</h1>
-            <h1>Bio : Shreyash Jain</h1>
+            <h1>Bio : {initial2.Bio}</h1>
         </div>
     </div>
     <ul class="py-4 mt-2  flex items-center justify-around">

@@ -34,20 +34,10 @@ const Router = ()=>{
         <Route exact path="/map" Component={Map }></Route>
         <Route exact path="/login" Component={Login}></Route>
         <Route exact path="/Ongoingevents" Component={Ongoingevents}></Route>
-
-        {/* <Route path="/app" element={<MainContainer />}></Route>
-          <Route path="/welcome" element={<Welcome />}></Route>
-          <Route path="/chat/:id" element={<ChatArea />}></Route>
-          <Route path="/users" element={<Users />}></Route>
-          <Route path="/groups" element={<Groups />}></Route>
-          <Route path="/create-groups" element={<CreateGroups />}></Route>
-        */}
         <Route exact path="/dashboard/:id" Component={Dashboard}></Route>
         <Route exact path="/common_dashboard/:id" Component={CommonDashboard}></Route>
-        {/* <Route exact path="/sport_detail_form/:id" Component={SportDetailForm}></Route> */}
         <Route exact path="/sport_detail_form/:id" Component={Profile}></Route>
-        <Route exact path="/headlines" Component={News}></Route>
-        <Route path="app" element={<MainContainer />}>
+        <Route path="/app/:id" element={<MainContainer />}>
           <Route path="welcome" element={<Welcome />}></Route>
           <Route path="chat/:_id" element={<ChatArea />}></Route>
           <Route path="users" element={<Users />}></Route>
@@ -55,9 +45,9 @@ const Router = ()=>{
           <Route path="create-groups" element={<CreateGroups />}></Route>
         </Route>
         
-        <Route exact path="/headlines" Component={News}></Route>
-        <Route exact path="/my-profile" Component={UserData}></Route>
-        <Route exact path="/find-trainer" Component={HireTrainee}></Route>
+        <Route exact path="/headlines/:id" Component={News}></Route>
+        <Route exact path="/my-profile/:id" Component={UserData}></Route>
+        <Route exact path="/find-trainer/:id" Component={HireTrainee}></Route>
         </Routes>
         </>
     )

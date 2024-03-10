@@ -21,14 +21,15 @@ try {
 }
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://virtualhackathon.vercel.app",
     methods: ["POST", "GET", "OPTIONS", "PATCH", "PUT", "DELETE"],
     credentials: true,
   })
 );
 
+
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.header("Access-Control-Allow-Origin", "https://virtualhackathon.vercel.app");
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
     "Access-Control-Allow-Headers",
@@ -54,8 +55,10 @@ app.get("/", (req, res) => {
   res.send("Hello how are you");
 });
 
-//Connect Data Base
-
+// //Connect Data Base
+// app.get("",(req,res)=>{
+//   res.send("Hello...")
+// })
 
 app.listen(port, () => {
   console.log("Connection successfully... ");

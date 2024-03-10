@@ -7,7 +7,7 @@ const Dashboard  = ()=>{
   const {id} =  useParams();
   const navigate = useNavigate();
   const [iniName,finName] = useState("");
-
+  const token = localStorage.getItem("token");
     const getdata  = async()=>{
         try {
            const result = await axios.get(`http://localhost:1234/sport_data/${id}`) ;
@@ -41,6 +41,7 @@ const getlocation = ()=>{
 }
 
     useEffect(()=>{
+		axios.defaults.headers.common["Authorization"] = token;
         getdata();
     },[])
     return(
