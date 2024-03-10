@@ -1,11 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import logo from '../assets/logo.png'
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import {ref,getStorage ,getDownloadURL} from "firebase/storage";
+import axios from 'axios';
+import News from './News';
 
 const Sidebar = () => {
+  const {id}= useParams();
+  const navigate = useNavigate();
   const [isSubMenuVisible, setSubMenuVisible] = useState(true);
   const [isSidebarVisible, setSidebarVisible] = useState(true);
+  const [ini_url, fin_url] = useState();
+
+  const [iniName,finName] = useState("");
+
+  // const getdata  = async()=>{
+  //     try {
+  //        const result = await axios.get(`http://localhost:1234/sport_data/${id}`) ;
+  //        const {Name,user_sport_data} = result.data; 
+  //        const storage = getStorage();
+  //        console.log(user_sport_data.image);
+  //        const imgref = ref(storage,`virtual_hackathone/${user_sport_data.image}`);
+  //        console.log(imgref)
+  //      try {
+  //     const url =  await getDownloadURL(imgref);
+  //     fin_url(url);
+  //      } catch (error) {
+  //       console.log(error)
+  //      }
+  //        finName(Name);   
+  //     } catch (error) {
+  //         console.log(error);
+  //         alert(error);
+  //     }
+  // }
+
+
+
+
+  // useEffect(()=>{
+  //     getdata();
+  // },[])
 
   const toggleSubMenu = () => {
     setSubMenuVisible(!isSubMenuVisible);
@@ -14,8 +49,10 @@ const Sidebar = () => {
   const toggleSidebar = () => {
     setSidebarVisible(!isSidebarVisible);
   };
+
   const switchMode = () => {
-    document.body.classList.toggle('dark-mode');
+    localStorage.removeItem("token");
+    navigate("/");
   };
 
   return (
@@ -27,11 +64,11 @@ const Sidebar = () => {
         <div className="text-gray-100 text-xl">
           <div className="p-2.5 mt-1 flex items-center justify-center">
 
-            <img className='lg:w-[50px]' src="https://static.vecteezy.com/system/resources/previews/019/896/008/non_2x/male-user-avatar-icon-in-flat-design-style-person-signs-illustration-png.png" alt="" />            
+            {/* <img className='lg:w-[70px] lg:h-[70px] rounded-full' src={ini_url} alt="" />             */}
            
             <i className="bi bi-x cursor-pointer ml-28 lg:hidden" onClick={toggleSidebar}></i>
           </div>
-          <p className='text-sm mt-2'>Welcome "User"</p>
+          {/* <p className='text-sm mt-2'>Welcome "{iniName}"</p> */}
           <div className="my-2 bg-gray-600 h-[1px]"></div>
         </div>
        
@@ -47,7 +84,7 @@ const Sidebar = () => {
           <path d="M10 21V3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
           <path d="M10 4L19 8L10 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
-          <span className="text-[15px] ml-4 text-gray-200 font-bold">Bookmark</span>
+          <Link to='/my-profile' className="text-[15px] ml-4 text-gray-200 font-bold">My Profile</Link>
         </div>
         <div className="p-2.5 mt-1 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-red-800 text-white">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -84,6 +121,15 @@ const Sidebar = () => {
         </svg>
         
           <span className="text-[15px] ml-4 text-gray-200 font-bold">Past Events</span>
+        </div>
+        <div className="p-2.5 mt-1 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-red-800 text-white">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 21H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M10 21V3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M10 4L19 8L10 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        
+          <Link to='/headlines' className="text-[15px] ml-4 text-gray-200 font-bold">Sports News</Link>
         </div>
         <div className="my-4 bg-gray-600 h-[1px]"></div>
         <div className="p-2.5 mt-1 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-red-800 text-white" onClick={toggleSubMenu}>

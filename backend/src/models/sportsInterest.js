@@ -9,6 +9,9 @@ const Sport = new mongoose.Schema({
        latitude:{
         type:String,
        },
+       image:{
+        type:String
+       },
     CoreSkill:{
      type:String,
      required:true,
@@ -22,6 +25,10 @@ const Sport = new mongoose.Schema({
         required:true
     },
     skillLevel:{
+        type:String,
+        required:true,
+    },
+    FName:{
         type:String,
         required:true,
     },

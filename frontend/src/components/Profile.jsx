@@ -1,6 +1,9 @@
 import {React,useEffect,useState} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { ref, uploadBytes ,getStorage} from "firebase/storage";
+import {v4} from 'uuid';
+import { imageDb } from "./Config";
 
 const Profile = () => {
     const navigate = useNavigate();
@@ -25,6 +28,8 @@ const Profile = () => {
         Bio:"",
     })
     const [selectedSports, setSelectedSports] = useState([]);
+    const [initialfile, finalfile] = useState();
+
     const setdata = (event)=>{
         const {name,value} = event.target;
         final((info)=>{
@@ -39,25 +44,31 @@ const Profile = () => {
     const savedata = async(event)=>{
         event.preventDefault();
         try {
+            const storage = getStorage();
+            const image = `${initialfile.name + v4()}`;
+           const imgref = ref(storage,`virtual_hackathone/${image}`);
         const {CoreSkill,DOB,Bio} = initial;
         const Email = ini_authSave.Email;
+        const FName = ini_authSave.FName;
         console.log(firlocation);
          if(firlocation === "error" || firlocation === ""){
              console.log("Hello How are you")
              const response = await axios.post(`http://localhost:1234/sportsDetailForm/${id}`,{
-                CoreSkill,DOB,Bio,Email,skillLevel,selectedSports
+                CoreSkill,DOB,Bio,Email,skillLevel,selectedSports,image,FName
                })
                 alert("Successfully Save ...")
                 if(response.status = 202){
+                    uploadBytes(imgref,initialfile)
                  navigate(`/common_dashboard/${id}`);
                 }
      }
          else{
             const response = await axios.post(`http://localhost:1234/sportsDetailForm/${id}`,{
-                CoreSkill,DOB,Bio,Email,skillLevel,selectedSports,firlocation
+                CoreSkill,DOB,Bio,Email,skillLevel,selectedSports,firlocation,image
                })
                 alert("Successfully Save ...")
                 if(response.status = 202){
+                 uploadBytes(imgref,initialfile)
                  navigate(`/dashboard/${id}`);
                 }
          }
@@ -274,7 +285,7 @@ console.log(firlocation);
                   <div class="flex text-sm text-gray-600">
                     <label for="file-upload" class="relative cursor-pointer bg-transparent rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                       <span class="text-[15px]">Upload a file</span>
-                      <input id="file-upload" name="file-upload" type="file" class="sr-only"/>
+                      <input onChange={(ev) => { finalfile(ev.target.files[0]) }} id="file-upload" name="file-upload" type="file" class="sr-only"/>
                     </label>
                     <p class="pl-1 ">or drag and drop</p>
                   </div>
